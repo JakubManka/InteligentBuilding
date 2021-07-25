@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">InteligentBuilding</string>
+    <string name="oswietlenie">Oświetlenie</string>
+    <string name="kuchnia">Kuchnia</string>
+    <string name="salon">Salon</string>
+    <string name="sypialnia">Sypialnia</string>
 </resources>
