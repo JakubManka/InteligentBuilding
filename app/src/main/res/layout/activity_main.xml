@@ -13,11 +13,10 @@
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="8"
+        android:layout_weight="10"
         android:alignmentMode="alignMargins"
         android:columnCount="1"
         android:rowCount="3">
-
 
         <androidx.cardview.widget.CardView
             android:layout_width="0dp"
@@ -30,114 +29,120 @@
             app:cardElevation="8dp"
             app:cardCornerRadius="8dp"
             >
-            <LinearLayout
+
+
+            <ScrollView
                 android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:layout_height="match_parent">
-
+                android:layout_height="wrap_content">
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:orientation="horizontal"
-                    android:padding="10dp"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:text="@string/oswietlenie"
-                        android:textSize="20sp"
-                        android:layout_height="wrap_content">
-                    </TextView>
+                    android:orientation="vertical"
+                    android:layout_height="match_parent">
 
-                    <com.google.android.material.switchmaterial.SwitchMaterial
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:id="@+id/oswietlenie"
-                        android:layout_height="0dp">
-                    </com.google.android.material.switchmaterial.SwitchMaterial>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal"
-                    android:padding="10dp"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:src="@drawable/light_bulb"
+                        android:orientation="horizontal"
+                        android:padding="10dp"
                         android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text="@string/oswietlenie"
+                            android:textSize="20sp"
+                            android:layout_height="wrap_content">
+                        </TextView>
 
-                    </ImageView>
+                        <com.google.android.material.switchmaterial.SwitchMaterial
+                            android:layout_width="match_parent"
+                            android:id="@+id/oswietlenie"
+                            android:layout_height="0dp">
+                        </com.google.android.material.switchmaterial.SwitchMaterial>
+                    </LinearLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:text="@string/kuchnia"
-                        android:textSize="16sp"
-                        android:layout_height="wrap_content">
-                    </TextView>
-                    <com.google.android.material.switchmaterial.SwitchMaterial
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:id="@+id/kuchnia"
-                        android:layout_height="0dp">
-                    </com.google.android.material.switchmaterial.SwitchMaterial>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal"
-                    android:padding="10dp"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:src="@drawable/light_bulb"
+                        android:orientation="horizontal"
+                        android:padding="10dp"
                         android:layout_height="wrap_content">
 
-                    </ImageView>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:src="@drawable/light_bulb"
+                            android:layout_height="wrap_content">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:text="@string/salon"
-                        android:textSize="16sp"
-                        android:layout_height="wrap_content">
-                    </TextView>
+                        </ImageView>
 
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text="@string/kuchnia"
+                            android:textSize="16sp"
+                            android:layout_height="wrap_content">
+                        </TextView>
+                        <com.google.android.material.switchmaterial.SwitchMaterial
+                            android:layout_width="match_parent"
+                            android:id="@+id/kuchnia"
+                            android:layout_height="0dp">
+                        </com.google.android.material.switchmaterial.SwitchMaterial>
+                    </LinearLayout>
 
-                    <com.google.android.material.switchmaterial.SwitchMaterial
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:id="@+id/salon"
-                        android:layout_height="0dp">
-                    </com.google.android.material.switchmaterial.SwitchMaterial>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal"
-                    android:padding="10dp"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:src="@drawable/light_bulb"
+                        android:orientation="horizontal"
+                        android:padding="10dp"
                         android:layout_height="wrap_content">
 
-                    </ImageView>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:src="@drawable/light_bulb"
+                            android:layout_height="wrap_content">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:text="@string/sypialnia"
-                        android:textSize="16sp"
-                        android:layout_height="wrap_content">
-                    </TextView>
+                        </ImageView>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text="@string/salon"
+                            android:textSize="16sp"
+                            android:layout_height="wrap_content">
+                        </TextView>
 
 
-                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        <com.google.android.material.switchmaterial.SwitchMaterial
+                            android:layout_width="match_parent"
+                            android:id="@+id/salon"
+                            android:layout_height="0dp">
+                        </com.google.android.material.switchmaterial.SwitchMaterial>
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:id="@+id/sypialnia"
-                        android:layout_height="0dp">
-                    </com.google.android.material.switchmaterial.SwitchMaterial>
+                        android:orientation="horizontal"
+                        android:padding="10dp"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:src="@drawable/light_bulb"
+                            android:layout_height="wrap_content">
+
+                        </ImageView>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text="@string/sypialnia"
+                            android:textSize="16sp"
+                            android:layout_height="wrap_content">
+                        </TextView>
+
+
+                        <com.google.android.material.switchmaterial.SwitchMaterial
+                            android:layout_width="match_parent"
+                            android:id="@+id/sypialnia"
+                            android:layout_height="0dp">
+                        </com.google.android.material.switchmaterial.SwitchMaterial>
+                    </LinearLayout>
+
+
                 </LinearLayout>
-
-
-            </LinearLayout>
+            </ScrollView>
 
 
         </androidx.cardview.widget.CardView>
@@ -145,7 +150,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_rowWeight="1"
+            android:layout_rowWeight="2"
             android:layout_columnWeight="1"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
@@ -159,6 +164,16 @@
                 android:background="@drawable/house_map">
 
             </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingTop="20dp"
+                android:paddingStart="20dp"
+                android:src="@drawable/light_bulb_house_off">
+
+            </ImageView>
 
         </androidx.cardview.widget.CardView>
 

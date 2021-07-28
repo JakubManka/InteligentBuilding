@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
     private void updateLightsView(CompoundButton buttonView, boolean isChecked) {
 
         if (buttonView.getId() == R.id.oswietlenie && !isAnyLightChecked()) {
-
             lights.replaceAll((lights, clicked) -> clicked = isChecked);
 
         } else if (buttonView.getId() == R.id.oswietlenie && !isChecked) {
@@ -54,6 +53,8 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
 
         } else if (isAnyLightChecked()) {
             lights.put((SwitchMaterial) findViewById(R.id.oswietlenie), true);
+        } else {
+            lights.replaceAll((lights, clicked) -> clicked = false);
         }
 
         lights.forEach((light, clicked) -> {
