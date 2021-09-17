@@ -1,26 +1,24 @@
-package pwr.inteligentbuilding;
+package pwr.inteligentbuilding.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.CompoundButton;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
+import pwr.inteligentbuilding.R;
 
+public class LightActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener  {
     Map<SwitchMaterial, Boolean> lights = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_light);
 
 //        lights.put(findViewById(R.id.oswietlenie, false);
         lights.put((SwitchMaterial) findViewById(R.id.oswietlenie), false);
@@ -30,8 +28,6 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
 
 
         lights.forEach((light, checked) -> light.setOnCheckedChangeListener(this));
-
-
     }
 
     @Override
