@@ -9,7 +9,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.InteligentBuilding">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".activity.SettingsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.FloorActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.RoomActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.LightActivity"
+            android:exported="true" />
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
