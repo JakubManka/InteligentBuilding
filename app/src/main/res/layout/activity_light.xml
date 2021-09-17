@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="10"
-    tools:context=".MainActivity">
+    tools:context=".activity.MainActivity">
 
     <GridLayout
         android:layout_width="match_parent"
@@ -22,6 +22,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_rowWeight="1"
+            android:layout_marginTop="50dp"
             android:layout_columnWeight="1"
             android:layout_marginLeft="16dp"
             android:layout_marginBottom="16dp"
@@ -29,7 +30,6 @@
             app:cardElevation="8dp"
             app:cardCornerRadius="8dp"
             >
-
 
             <ScrollView
                 android:layout_width="match_parent"
@@ -47,6 +47,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:text="@string/oswietlenie"
+                            android:textStyle="bold"
                             android:textSize="20sp"
                             android:layout_height="wrap_content">
                         </TextView>
@@ -143,40 +144,7 @@
 
                 </LinearLayout>
             </ScrollView>
-
-
         </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_rowWeight="2"
-            android:layout_columnWeight="1"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="16dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="8dp">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/house_map">
-
-            </LinearLayout>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="20dp"
-                android:paddingTop="20dp"
-                android:paddingStart="20dp"
-                android:src="@drawable/light_bulb_house_off">
-
-            </ImageView>
-
-        </androidx.cardview.widget.CardView>
-
     </GridLayout>
 
 
