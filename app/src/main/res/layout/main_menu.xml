@@ -37,14 +37,18 @@
             app:cardElevation="8dp">
 
             <TextView
+                android:id="@+id/roomsMenu"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="20dp"
                 android:text="@string/pokoje"
-                android:id="@+id/roomsMenu"
-                android:textAlignment="center">
+                android:textAlignment="center"
+                android:textStyle="bold" />
 
-            </TextView>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/room" />
 
         </androidx.cardview.widget.CardView>
 
@@ -62,14 +66,20 @@
             app:cardElevation="8dp">
 
             <TextView
+                android:id="@+id/floorsMenu"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="20dp"
                 android:text="@string/pietra"
-                android:id="@+id/floorsMenu"
-                android:textAlignment="center">
+                android:textAlignment="center"
+                android:textStyle="bold" />
 
-            </TextView>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/house" />
+
+
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -86,13 +96,18 @@
             app:cardElevation="8dp">
 
             <TextView
+                android:id="@+id/lightsMenu"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="20dp"
                 android:text="@string/oswietlenie"
-                android:id="@+id/lightsMenu"
-                android:textAlignment="center">
-            </TextView>
+                android:textAlignment="center"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/lightning" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -109,13 +124,18 @@
             app:cardElevation="8dp">
 
             <TextView
+                android:id="@+id/temperatureMenu"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="20dp"
                 android:text="@string/temperatura"
-                android:id="@+id/temperatureMenu"
-                android:textAlignment="center">
-            </TextView>
+                android:textAlignment="center"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/temperature" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -132,14 +152,18 @@
             app:cardElevation="8dp">
 
             <TextView
+                android:id="@+id/socketsMenu"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="20dp"
                 android:text="@string/gniazdka"
-                android:id="@+id/socketsMenu"
-                android:textAlignment="center">
+                android:textAlignment="center"
+                android:textStyle="bold" />
 
-            </TextView>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/socket" />
 
         </androidx.cardview.widget.CardView>
 
@@ -157,88 +181,18 @@
             app:cardElevation="8dp">
 
             <TextView
+                android:id="@+id/settingsMenu"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="20dp"
                 android:text="@string/ustawienia"
-                android:id="@+id/settingsMenu"
-                android:textAlignment="center">
+                android:textAlignment="center"
+                android:textStyle="bold" />
 
-            </TextView>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_rowWeight="2"
-            android:layout_columnWeight="1"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp"
-            android:clickable="true"
-            android:focusable="true"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="8dp">
-
-            <TextView
+            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="20dp"
-                android:text="option"
-                android:textAlignment="center">
-
-            </TextView>
-
+                android:src="@drawable/settings" />
         </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_rowWeight="2"
-            android:layout_columnWeight="1"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp"
-            android:clickable="true"
-            android:focusable="true"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="8dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="20dp"
-                android:text="option"
-                android:textAlignment="center">
-
-            </TextView>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_rowWeight="2"
-            android:layout_columnWeight="1"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp"
-            android:clickable="true"
-            android:focusable="true"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="8dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="20dp"
-                android:text="option"
-                android:textAlignment="center">
-
-            </TextView>
-
-        </androidx.cardview.widget.CardView>
-
     </GridLayout>
 </LinearLayout>
