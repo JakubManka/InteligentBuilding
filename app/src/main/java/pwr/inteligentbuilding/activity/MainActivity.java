@@ -1,10 +1,12 @@
 package pwr.inteligentbuilding.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
+import static android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,13 +20,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_menu);
-
-        mainMenuItems.put((View) findViewById(R.id.roomsMenu), new Intent(MainActivity.this, RoomActivity.class));
-        mainMenuItems.put((View) findViewById(R.id.floorsMenu), new Intent(MainActivity.this, FloorActivity.class));
-        mainMenuItems.put((View) findViewById(R.id.lightsMenu), new Intent(MainActivity.this, LightActivity.class));
-        mainMenuItems.put((View) findViewById(R.id.socketsMenu), new Intent(MainActivity.this, LightActivity.class));
-        mainMenuItems.put((View) findViewById(R.id.temperatureMenu), new Intent(MainActivity.this, LightActivity.class));
-        mainMenuItems.put((View) findViewById(R.id.settingsMenu), new Intent(MainActivity.this, SettingsActivity.class));
+        getWindow().setFlags(FLAG_FULLSCREEN, FLAG_FULLSCREEN);
+        setMenuItems();
 
         mainMenuItems.keySet().forEach(view -> view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -32,5 +29,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(mainMenuItems.get(view));
             }
         }));
+    }
+
+    private void setMenuItems() {
+        mainMenuItems.put((View) findViewById(R.id.roomsMenu), new Intent(MainActivity.this, RoomActivity.class));
+        mainMenuItems.put((View) findViewById(R.id.floorsMenu), new Intent(MainActivity.this, FloorActivity.class));
+        mainMenuItems.put((View) findViewById(R.id.lightsMenu), new Intent(MainActivity.this, LightActivity.class));
+        mainMenuItems.put((View) findViewById(R.id.socketsMenu), new Intent(MainActivity.this, LightActivity.class));
+        mainMenuItems.put((View) findViewById(R.id.temperatureMenu), new Intent(MainActivity.this, LightActivity.class));
+        mainMenuItems.put((View) findViewById(R.id.settingsMenu), new Intent(MainActivity.this, SettingsActivity.class));
     }
 }

@@ -1,9 +1,15 @@
 package pwr.inteligentbuilding.activity;
 
+import static android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN;
+
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
@@ -12,13 +18,15 @@ import java.util.Map;
 
 import pwr.inteligentbuilding.R;
 
-public class LightActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener  {
+public class LightActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
     Map<SwitchMaterial, Boolean> lights = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_light);
+        getWindow().setFlags(FLAG_FULLSCREEN, FLAG_FULLSCREEN);
+        ImageButton undo = findViewById(R.id.undo);
 
 //        lights.put(findViewById(R.id.oswietlenie, false);
         lights.put((SwitchMaterial) findViewById(R.id.oswietlenie), false);
@@ -26,6 +34,7 @@ public class LightActivity extends AppCompatActivity implements CompoundButton.O
         lights.put((SwitchMaterial) findViewById(R.id.sypialnia), false);
         lights.put((SwitchMaterial) findViewById(R.id.salon), false);
 
+        undo.setOnClickListener(v -> startActivity(new Intent(LightActivity.this, MainActivity.class)));
 
         lights.forEach((light, checked) -> light.setOnCheckedChangeListener(this));
     }
