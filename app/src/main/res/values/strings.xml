@@ -1,20 +1,28 @@
 <resources>
     <string name="app_name">InteligentBuilding</string>
-    <string name="oswietlenie">Oświetlenie</string>
-    <string name="kuchnia">Kuchnia</string>
-    <string name="salon">Salon</string>
-    <string name="sypialnia">Sypialnia</string>
-    <string name="pokoje">Pokoje</string>
-    <string name="pietra">Piętra</string>
-    <string name="temperatura">Temperatura</string>
-    <string name="gniazdka">Gniazdka</string>
-    <string name="ustawienia">Ustawienia</string>
+    <string name="lightning">Oświetlenie</string>
+    <string name="rooms">Pokoje</string>
+    <string name="floors">Piętra</string>
+    <string name="temperature">Temperatura</string>
+    <string name="sockets">Gniazdka</string>
+    <string name="settings">Ustawienia</string>
     <string name="title_activity_lights">LightsActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="bedroom_1">Sypialnia 1</string>
+    <string name="bedroom_2">Sypialnia 2</string>
+    <string name="Bathroom_1">Łazienka 1</string>
+    <string name="Bathroom_2">Łazienka 2</string>
+    <string name="kitchen">Kuchnia</string>
+    <string name="living_room">Salon</string>
+    <string name="bedroom">Sypialnia</string>
+    <string name="light">Światło</string>
+    <string name="light_1">Światło 1</string>
+    <string name="light_2">Światło 2</string>
+    <string name="socket">Gniazdko</string>
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
