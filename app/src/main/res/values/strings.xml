@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">InteligentBuilding</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
     <string name="lightning">Oświetlenie</string>
     <string name="rooms">Pokoje</string>
     <string name="floors">Piętra</string>
