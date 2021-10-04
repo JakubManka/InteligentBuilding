@@ -3,9 +3,11 @@ package pwr.inteligentbuilding.activity;
 import static android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 
@@ -18,21 +20,20 @@ import pwr.inteligentbuilding.R;
 
 public class LightActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
     Map<SwitchMaterial, Boolean> lights = new HashMap<>();
+    DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_light);
         getWindow().setFlags(FLAG_FULLSCREEN, FLAG_FULLSCREEN);
-        ImageButton undo = findViewById(R.id.undo);
 
-//        lights.put(findViewById(R.id.oswietlenie, false);
+        drawerLayout = findViewById(R.id.drawerLayout);
+
         lights.put((SwitchMaterial) findViewById(R.id.lightning), false);
         lights.put((SwitchMaterial) findViewById(R.id.kitchen), false);
         lights.put((SwitchMaterial) findViewById(R.id.bed_room), false);
         lights.put((SwitchMaterial) findViewById(R.id.living_room), false);
-
-        undo.setOnClickListener(v -> startActivity(new Intent(LightActivity.this, MainActivity.class)));
 
         lights.forEach((light, checked) -> light.setOnCheckedChangeListener(this));
     }
@@ -73,5 +74,21 @@ public class LightActivity extends AppCompatActivity implements CompoundButton.O
             }
         });
         return isClicked[0];
+    }
+
+    public void ClickMenu(View view){
+        MainActivity.openDrawer(drawerLayout);
+    }
+
+    public void ClickFloor(View view){
+        MainActivity.redirectActivity(this, FloorActivity.class);
+    }
+
+    public void ClickRoom(View view){
+        MainActivity.redirectActivity(this, RoomActivity.class);
+    }
+
+    public void ClickLight(View view){
+        MainActivity.redirectActivity(this, LightActivity.class);
     }
 }
