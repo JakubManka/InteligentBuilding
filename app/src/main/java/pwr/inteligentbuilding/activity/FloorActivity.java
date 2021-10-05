@@ -7,6 +7,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import pwr.inteligentbuilding.R;
 
@@ -37,5 +38,26 @@ public class FloorActivity extends AppCompatActivity {
 
     public void ClickLight(View view){
         MainActivity.redirectActivity(this, LightActivity.class);
+    }
+
+    public void handleLightClick(View view) {
+        LinearLayout ground = findViewById(R.id.ground_floor);
+        ground.setVisibility(View.GONE);
+    }
+    public void handleSocketClick(View view) {
+        LinearLayout ground = findViewById(R.id.ground_floor);
+        ground.setVisibility(View.GONE);
+    }
+    public void handleSunblindClick(View view) {
+        LinearLayout ground = findViewById(R.id.ground_floor);
+        ground.setVisibility(View.GONE);
+    }
+    public void handleSensorClick(View view) {
+        LinearLayout ground = findViewById(R.id.ground_floor);
+        ground.setVisibility(View.GONE);
+    }
+    public void handleGateClick(View view) {
+        LinearLayout ground = findViewById(R.id.ground_floor);
+        ground.setVisibility(View.GONE);
     }
 }

@@ -71,7 +71,7 @@
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/main_menu_lightning" />
+                                android:src="@drawable/ic_light_off" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -94,7 +94,7 @@
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/main_menu_lightning" />
+                                android:src="@drawable/ic_light_off" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -117,7 +117,7 @@
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/main_menu_lightning" />
+                                android:src="@drawable/ic_light_off" />
 
                             <TextView
                                 android:layout_width="wrap_content"
