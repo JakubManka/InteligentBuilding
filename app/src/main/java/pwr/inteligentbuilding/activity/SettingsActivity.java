@@ -2,9 +2,9 @@ package pwr.inteligentbuilding.activity;
 
 import static android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import pwr.inteligentbuilding.R;
 

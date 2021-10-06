@@ -5,23 +5,15 @@ import static android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import pwr.inteligentbuilding.R;
 
 public class MainActivity extends AppCompatActivity {
-    //    Map<View, Intent> mainMenuItems = new HashMap<>();
-    ActionBarDrawerToggle toggle;
     DrawerLayout drawerLayout;
 
     @Override
@@ -53,6 +45,9 @@ public class MainActivity extends AppCompatActivity {
         redirectActivity(this, LightActivity.class);
     }
 
+    public void ClickOPCUA(View view){
+        redirectActivity(this, OpcuaActivity.class);
+    }
 
     public static void redirectActivity(Activity activity, Class aClass){
         Intent intent = new Intent(activity, aClass);
@@ -70,13 +65,4 @@ public class MainActivity extends AppCompatActivity {
             drawerLayout.closeDrawer(GravityCompat.START);
         }
     }
-
 }
-
-
-
-
-
-
-
-

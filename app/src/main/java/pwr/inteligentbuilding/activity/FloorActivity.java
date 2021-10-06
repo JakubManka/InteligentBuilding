@@ -47,6 +47,10 @@ public class FloorActivity extends AppCompatActivity {
         MainActivity.redirectActivity(this, LightActivity.class);
     }
 
+    public void ClickOPCUA(View view){
+        MainActivity.redirectActivity(this, OpcuaActivity.class);
+    }
+
     public void handleFirstFloorClick(View view) {
         gate.setVisibility(View.GONE);
         groundFloor.setVisibility(View.GONE);
