@@ -6,7 +6,8 @@ import android.os.Message;
 import org.opcfoundation.ua.common.ServiceResultException;
 import org.opcfoundation.ua.core.CreateSubscriptionRequest;
 
-import OpcUtils.SessionElement;
+import pwr.inteligentbuilding.OpcUtils.SessionElement;
+
 
 public class ThreadCreateSubscription extends Thread {
 

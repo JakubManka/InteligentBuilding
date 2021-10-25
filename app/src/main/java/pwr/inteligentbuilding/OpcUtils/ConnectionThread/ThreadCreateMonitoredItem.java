@@ -6,8 +6,9 @@ import android.os.Message;
 import org.opcfoundation.ua.common.ServiceResultException;
 import org.opcfoundation.ua.core.CreateMonitoredItemsRequest;
 
-import OpcUtils.MonItemNotCreatedException;
-import OpcUtils.SubscriptionElement;
+import pwr.inteligentbuilding.OpcUtils.MonItemNotCreatedException;
+import pwr.inteligentbuilding.OpcUtils.SubscriptionElement;
+
 
 public class ThreadCreateMonitoredItem extends Thread {
 

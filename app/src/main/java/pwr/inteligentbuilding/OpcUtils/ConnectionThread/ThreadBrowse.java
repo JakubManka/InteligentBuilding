@@ -6,7 +6,8 @@ import android.os.Message;
 import org.opcfoundation.ua.common.ServiceResultException;
 import org.opcfoundation.ua.core.BrowseResponse;
 
-import OpcUtils.ManagerOPC;
+import pwr.inteligentbuilding.OpcUtils.ManagerOPC;
+
 
 public class ThreadBrowse extends Thread {
 
