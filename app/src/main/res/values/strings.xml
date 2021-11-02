@@ -30,9 +30,14 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="ground_floor">parter</string>
     <string name="floor">pietro</string>
+
+    <string name="turnOn">WŁĄCZ</string>
+    <string name="turnOff">WYŁĄCZ</string>
+
     <string name="opcua">opcua</string>
     <string name="hintIP">Ex. 192.168.1.3:51210</string>
     <string name="connect">Połącz się</string>
     <string name="OPCTopMessage">Wpisz OPC UA Server Address</string>
     <string name="list_endpoint">Lista Endpointów</string>
+
 </resources>

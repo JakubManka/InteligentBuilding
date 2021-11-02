@@ -2,6 +2,7 @@ package pwr.inteligentbuilding.activity;
 
 import static android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -14,10 +15,14 @@ import android.widget.RelativeLayout;
 import pwr.inteligentbuilding.R;
 
 public class FloorActivity extends AppCompatActivity {
-    DrawerLayout drawerLayout;
-    LinearLayout firstFloor;
-    LinearLayout groundFloor;
-    RelativeLayout view;
+    private DrawerLayout drawerLayout;
+    private LinearLayout firstFloor;
+    private LinearLayout groundFloor;
+    private RelativeLayout gate;
+    private AlertDialog.Builder dialogBuilder;
+    private AlertDialog dialog;
+    private ImageView deviceStatus;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +30,7 @@ public class FloorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_floor);
         getWindow().setFlags(FLAG_FULLSCREEN, FLAG_FULLSCREEN);
 
+        deviceStatus = findViewById(R.id.deviceStatus);
         firstFloor = findViewById(R.id.first_floor);
         groundFloor = findViewById(R.id.ground_floor);
         drawerLayout = findViewById(R.id.drawerLayout);
@@ -64,8 +70,7 @@ public class FloorActivity extends AppCompatActivity {
     }
 
     public void handleLightClick(View view) {
-        ImageView light = (ImageView) view;
-        changeImage(light, R.drawable.ic_light_off, R.drawable.ic_light_on);
+        createCustomDialog(R.layout.popup_light);
     }
 
     public void handleSocketClick(View view) {
@@ -102,5 +107,13 @@ public class FloorActivity extends AppCompatActivity {
             view.setImageResource(resIdOn);
             view.setTag(resIdOn);
         }
+    }
+
+    private void createCustomDialog(int layout){
+        dialogBuilder = new AlertDialog.Builder(this);
+        final View contactPopupView = getLayoutInflater().inflate(layout, null);
+        dialogBuilder.setView(contactPopupView);
+        dialog = dialogBuilder.create();
+        dialog.show();
     }
 }
