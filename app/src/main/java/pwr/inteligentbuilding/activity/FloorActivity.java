@@ -2,6 +2,7 @@ package pwr.inteligentbuilding.activity;
 
 import static android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -14,10 +15,13 @@ import android.widget.RelativeLayout;
 import pwr.inteligentbuilding.R;
 
 public class FloorActivity extends AppCompatActivity {
-    DrawerLayout drawerLayout;
-    LinearLayout firstFloor;
-    LinearLayout groundFloor;
-    RelativeLayout gate;
+    private DrawerLayout drawerLayout;
+    private LinearLayout firstFloor;
+    private LinearLayout groundFloor;
+    private RelativeLayout gate;
+    private AlertDialog.Builder dialogBuilder;
+    private AlertDialog dialog;
+    private ImageView deviceStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +29,7 @@ public class FloorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_floor);
         getWindow().setFlags(FLAG_FULLSCREEN, FLAG_FULLSCREEN);
 
+        deviceStatus = findViewById(R.id.deviceStatus);
         firstFloor = findViewById(R.id.first_floor);
         groundFloor = findViewById(R.id.ground_floor);
         drawerLayout = findViewById(R.id.drawerLayout);
@@ -60,20 +65,7 @@ public class FloorActivity extends AppCompatActivity {
     }
 
     public void handleLightClick(View view) {
-        ImageView light = (ImageView) view;
-        if (light.getTag() != null) {
-            int tag = (int) light.getTag();
-            if (tag == R.drawable.ic_light_off) {
-                light.setImageResource(R.drawable.ic_light_on);
-                light.setTag(R.drawable.ic_light_on);
-            } else {
-                light.setImageResource(R.drawable.ic_light_off);
-                light.setTag(R.drawable.ic_light_off);
-            }
-        } else {
-            light.setImageResource(R.drawable.ic_light_on);
-            light.setTag(R.drawable.ic_light_on);
-        }
+        createCustomDialog(R.layout.popup_light);
     }
 
     public void handleSocketClick(View view) {
@@ -142,5 +134,13 @@ public class FloorActivity extends AppCompatActivity {
             gate.setImageResource(R.drawable.ic_gate_on);
             gate.setTag(R.drawable.ic_gate_on);
         }
+    }
+
+    private void createCustomDialog(int layout){
+        dialogBuilder = new AlertDialog.Builder(this);
+        final View contactPopupView = getLayoutInflater().inflate(layout, null);
+        dialogBuilder.setView(contactPopupView);
+        dialog = dialogBuilder.create();
+        dialog.show();
     }
 }

@@ -30,4 +30,6 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="ground_floor">parter</string>
     <string name="floor">pietro</string>
+    <string name="turnOn">WŁĄCZ</string>
+    <string name="turnOff">WYŁĄCZ</string>
 </resources>
