@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.InteligentBuilding">
         <activity
-            android:name=".activity.OpcuaActivity"
+            android:name=".activity.FloorActivity"
             android:exported="true" />
         <activity
             android:name=".activity.SettingsActivity"
@@ -27,7 +27,7 @@
             android:name=".activity.LightActivity"
             android:exported="true" />
         <activity
-            android:name=".activity.FloorActivity"
+            android:name=".activity.OpcuaActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

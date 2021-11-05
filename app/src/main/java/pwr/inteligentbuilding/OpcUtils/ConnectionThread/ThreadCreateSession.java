@@ -1,5 +1,6 @@
 package pwr.inteligentbuilding.OpcUtils.ConnectionThread;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 
@@ -7,6 +8,8 @@ import org.opcfoundation.ua.common.ServiceResultException;
 import org.opcfoundation.ua.core.EndpointDescription;
 
 import pwr.inteligentbuilding.OpcUtils.ManagerOPC;
+import pwr.inteligentbuilding.activity.FloorActivity;
+import pwr.inteligentbuilding.activity.OpcuaActivity;
 
 
 public class ThreadCreateSession extends Thread {
@@ -15,40 +18,44 @@ public class ThreadCreateSession extends Thread {
     private ManagerOPC gestore;
     private EndpointDescription endpointDescription;
     private String url;
-    private int position =-1;
-    private boolean sent =false;
+    private int position = -1;
+    private boolean sent = false;
+    private OpcuaActivity activity;
 
-    public ThreadCreateSession(ManagerOPC gestore, String url, EndpointDescription endpointDescription){
-        this.gestore=gestore;
-        this.endpointDescription=endpointDescription;
-        this.url=url;
+    public ThreadCreateSession(ManagerOPC gestore, String url, EndpointDescription endpointDescription, OpcuaActivity activity) {
+        this.gestore = gestore;
+        this.endpointDescription = endpointDescription;
+        this.url = url;
+        this.activity = activity;
     }
 
-    private synchronized void send(Message msg){
-        if(!sent) {
+    private synchronized void send(Message msg) {
+        if (!sent) {
             msg.sendToTarget();
-            sent =true;
+            sent = true;
         }
     }
 
     public void start(Handler handler) {
         super.start();
-        this.handler=handler;
+        this.handler = handler;
     }
 
     @Override
     public void run() {
         super.run();
         try {
-            Thread t= new Thread(new Runnable() {
+            Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {
                     try {
-                        position =gestore.CreateSession(url,endpointDescription);
+                        position = gestore.CreateSession(url, endpointDescription);
                         send(handler.obtainMessage(0, position));
                     } catch (ServiceResultException e) {
-                        send(handler.obtainMessage(-1,e.getStatusCode()));
+                        send(handler.obtainMessage(-1, e.getStatusCode()));
                     }
+                    Intent intent = new Intent(activity, FloorActivity.class);
+                    activity.startActivity(intent);
                 }
             });
             t.start();
@@ -58,6 +65,5 @@ public class ThreadCreateSession extends Thread {
             send(handler.obtainMessage(-2));
 
         }
-
     }
 }

@@ -12,7 +12,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import pwr.inteligentbuilding.R;
+import pwr.inteligentbuilding.model.Device;
+import pwr.inteligentbuilding.model.Light;
+import pwr.inteligentbuilding.utils.DevicesUtils;
 
 public class FloorActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
@@ -22,6 +28,9 @@ public class FloorActivity extends AppCompatActivity {
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
     private ImageView deviceStatus;
+    private ImageView chosenView;
+
+    DevicesUtils devices;
 
 
     @Override
@@ -30,11 +39,12 @@ public class FloorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_floor);
         getWindow().setFlags(FLAG_FULLSCREEN, FLAG_FULLSCREEN);
 
-        deviceStatus = findViewById(R.id.deviceStatus);
+        chosenView = findViewById(R.id.light_2);
         firstFloor = findViewById(R.id.first_floor);
         groundFloor = findViewById(R.id.ground_floor);
         drawerLayout = findViewById(R.id.drawerLayout);
-        view = findViewById(R.id.gate);
+        gate = findViewById(R.id.gate);
+        devices = new DevicesUtils(this);
     }
 
     public void ClickMenu(View view) {
@@ -58,55 +68,61 @@ public class FloorActivity extends AppCompatActivity {
     }
 
     public void handleFirstFloorClick(View view) {
-        this.view.setVisibility(View.GONE);
+        this.gate.setVisibility(View.GONE);
         groundFloor.setVisibility(View.GONE);
         firstFloor.setVisibility(View.VISIBLE);
     }
 
     public void handleGroundFloorClick(View view) {
-        this.view.setVisibility(View.VISIBLE);
+        this.gate.setVisibility(View.VISIBLE);
         firstFloor.setVisibility(View.GONE);
         groundFloor.setVisibility(View.VISIBLE);
     }
 
     public void handleLightClick(View view) {
+        chosenView =(ImageView) view;
         createCustomDialog(R.layout.popup_light);
     }
 
     public void handleSocketClick(View view) {
-        ImageView socket = (ImageView) view;
-        changeImage(socket, R.drawable.ic_socket_off, R.drawable.ic_socket_on);
+        chosenView =(ImageView) view;
+        createCustomDialog(R.layout.popup_socket);
     }
 
     public void handleSunblindClick(View view) {
-        ImageView sunblind = (ImageView) view;
-        changeImage(sunblind, R.drawable.ic_sunblind_off, R.drawable.ic_sunblind_on);
+        chosenView =(ImageView) view;
+        createCustomDialog(R.layout.popup_sunblind);
     }
 
     public void handleSensorClick(View view) {
-        ImageView sensor = (ImageView) view;
-        changeImage(sensor, R.drawable.ic_sensor_off, R.drawable.ic_sensor_on);
+        chosenView =(ImageView) view;
+        createCustomDialog(R.layout.popup_sensor);
     }
 
     public void handleGateClick(View view) {
-        ImageView gate = (ImageView) view;
-        changeImage(gate, R.drawable.ic_gate_off, R.drawable.ic_gate_on);
+        chosenView =(ImageView) view;
+        createCustomDialog(R.layout.popup_gate);
     }
 
-    public void changeImage(ImageView view, int resIdOff, int resIdOn){
-        if (view.getTag() != null) {
-            int tag = (int) view.getTag();
-            if (tag == resIdOff) {
-                view.setImageResource(resIdOn);
-                view.setTag(resIdOn);
-            } else {
-                view.setImageResource(resIdOff);
-                view.setTag(resIdOff);
-            }
-        } else {
-            view.setImageResource(resIdOn);
-            view.setTag(resIdOn);
+    public void changeImage(int resId){
+        chosenView.setImageResource(resId);
+        deviceStatus.setImageResource(resId);
+    }
+
+    public void handleTurnOn(View v){
+//        devices.getDevices().get(chosenView).updateStatus();
+        System.out.println(deviceStatus.getTag());
+        if(deviceStatus.getTag().equals("light")){
+            changeImage(R.drawable.ic_light_on);
         }
+
+    }
+
+    public void handleTurnOff(View v){
+        if(deviceStatus.getTag().equals("light")){
+            changeImage(R.drawable.ic_light_off);
+        }
+//        devices.getDevices().get(chosenView).turnOn();
     }
 
     private void createCustomDialog(int layout){
@@ -115,5 +131,6 @@ public class FloorActivity extends AppCompatActivity {
         dialogBuilder.setView(contactPopupView);
         dialog = dialogBuilder.create();
         dialog.show();
+        deviceStatus =  dialog.findViewById(R.id.deviceStatus);
     }
 }
