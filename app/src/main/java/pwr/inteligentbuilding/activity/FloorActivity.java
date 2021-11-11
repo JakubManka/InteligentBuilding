@@ -6,6 +6,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -25,12 +26,11 @@ public class FloorActivity extends AppCompatActivity {
     private LinearLayout firstFloor;
     private LinearLayout groundFloor;
     private RelativeLayout gate;
-    private AlertDialog.Builder dialogBuilder;
-    private AlertDialog dialog;
     private ImageView deviceStatus;
     private ImageView chosenView;
 
     DevicesUtils devices;
+    private boolean isActivityVisible;
 
 
     @Override
@@ -45,7 +45,11 @@ public class FloorActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawerLayout);
         gate = findViewById(R.id.gate);
         devices = new DevicesUtils(this);
+        isActivityVisible = true;
+        devices.updateStatus();
     }
+
+
 
     public void ClickMenu(View view) {
         MainActivity.openDrawer(drawerLayout);
@@ -63,7 +67,7 @@ public class FloorActivity extends AppCompatActivity {
         MainActivity.redirectActivity(this, LightActivity.class);
     }
 
-    public void ClickOPCUA(View view){
+    public void ClickOPCUA(View view) {
         MainActivity.redirectActivity(this, OpcuaActivity.class);
     }
 
@@ -80,57 +84,73 @@ public class FloorActivity extends AppCompatActivity {
     }
 
     public void handleLightClick(View view) {
-        chosenView =(ImageView) view;
+        chosenView = (ImageView) view;
         createCustomDialog(R.layout.popup_light);
     }
 
     public void handleSocketClick(View view) {
-        chosenView =(ImageView) view;
+        chosenView = (ImageView) view;
         createCustomDialog(R.layout.popup_socket);
     }
 
     public void handleSunblindClick(View view) {
-        chosenView =(ImageView) view;
+        chosenView = (ImageView) view;
         createCustomDialog(R.layout.popup_sunblind);
     }
 
     public void handleSensorClick(View view) {
-        chosenView =(ImageView) view;
+        chosenView = (ImageView) view;
         createCustomDialog(R.layout.popup_sensor);
     }
 
     public void handleGateClick(View view) {
-        chosenView =(ImageView) view;
+        chosenView = (ImageView) view;
         createCustomDialog(R.layout.popup_gate);
     }
 
-    public void changeImage(int resId){
+    public void changeImage(int resId) {
         chosenView.setImageResource(resId);
         deviceStatus.setImageResource(resId);
     }
 
-    public void handleTurnOn(View v){
-//        devices.getDevices().get(chosenView).updateStatus();
-        System.out.println(deviceStatus.getTag());
-        if(deviceStatus.getTag().equals("light")){
-            changeImage(R.drawable.ic_light_on);
-        }
+    public void handleTurnOn(View v) {
+        devices.getDevices().get(chosenView).turnOn();
+//        System.out.println(deviceStatus.getTag());
+//        if (deviceStatus.getTag().equals("light")) {
+//            changeImage(R.drawable.ic_light_on);
+//        }
 
     }
 
-    public void handleTurnOff(View v){
-        if(deviceStatus.getTag().equals("light")){
-            changeImage(R.drawable.ic_light_off);
-        }
-//        devices.getDevices().get(chosenView).turnOn();
+    public void handleTurnOff(View v) {
+//        if (deviceStatus.getTag().equals("light")) {
+//            changeImage(R.drawable.ic_light_off);
+//        }
+        devices.getDevices().get(chosenView).turnOff();
     }
 
-    private void createCustomDialog(int layout){
-        dialogBuilder = new AlertDialog.Builder(this);
+    private void createCustomDialog(int layout) {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         final View contactPopupView = getLayoutInflater().inflate(layout, null);
         dialogBuilder.setView(contactPopupView);
-        dialog = dialogBuilder.create();
+        AlertDialog dialog = dialogBuilder.create();
         dialog.show();
-        deviceStatus =  dialog.findViewById(R.id.deviceStatus);
+        deviceStatus = dialog.findViewById(R.id.deviceStatus);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        isActivityVisible = true;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        isActivityVisible = false;
+    }
+
+    public boolean isActivityVisible() {
+        return isActivityVisible;
     }
 }

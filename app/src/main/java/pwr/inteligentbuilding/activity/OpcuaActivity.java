@@ -140,27 +140,29 @@ public class OpcuaActivity extends AppCompatActivity {
     }
 
     public void handleRead(View view) {
-        int namespace = 2;
-        int nodeid = 2;
-        sessionElement = manager.getSessions().get(0);
-        ThreadRead t = new ThreadRead(sessionElement.getSession(), 0, TimestampsToReturn.Both, namespace, nodeid, Attributes.Value);
-        ProgressDialog progressDialog = ProgressDialog.show(OpcuaActivity.this, "connecting attempt", "Reading in progress", true);
-        @SuppressLint("HandlerLeak") Handler handler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                if (msg.what == -1) {
-                    Toast.makeText(getApplicationContext(), "Reading not performed" + ((StatusCode) msg.obj).getDescription() + "\nCode: " + ((StatusCode) msg.obj).getValue().toString(), Toast.LENGTH_LONG).show();
-                } else if (msg.what == -2) {
-                    Toast.makeText(getApplicationContext(), "Request timeoit", Toast.LENGTH_LONG).show();
-                } else {
-                    ReadResponse res = (ReadResponse) msg.obj;
-                    System.out.println(res.getResults()[0].getValue());
-                }
-                progressDialog.dismiss();
-            }
-        };
-        t.start(handler);
-        dialog.dismiss();
+        Intent intent = new Intent(this, FloorActivity.class);
+        startActivity(intent);
+//        int namespace = 2;
+//        int nodeid = 2;
+//        sessionElement = manager.getSessions().get(0);
+//        ThreadRead t = new ThreadRead(sessionElement.getSession(), 0, TimestampsToReturn.Both, namespace, nodeid, Attributes.Value);
+//        ProgressDialog progressDialog = ProgressDialog.show(OpcuaActivity.this, "connecting attempt", "Reading in progress", true);
+//        @SuppressLint("HandlerLeak") Handler handler = new Handler() {
+//            @Override
+//            public void handleMessage(Message msg) {
+//                if (msg.what == -1) {
+//                    Toast.makeText(getApplicationContext(), "Reading not performed" + ((StatusCode) msg.obj).getDescription() + "\nCode: " + ((StatusCode) msg.obj).getValue().toString(), Toast.LENGTH_LONG).show();
+//                } else if (msg.what == -2) {
+//                    Toast.makeText(getApplicationContext(), "Request timeoit", Toast.LENGTH_LONG).show();
+//                } else {
+//                    ReadResponse res = (ReadResponse) msg.obj;
+//                    System.out.println(res.getResults()[0].getValue());
+//                }
+//                progressDialog.dismiss();
+//            }
+//        };
+//        t.start(handler);
+//        dialog.dismiss();
     }
 
     public void handleWrite(View view) {
@@ -178,7 +180,8 @@ public class OpcuaActivity extends AppCompatActivity {
             public void handleMessage(Message msg) {
                 progressDialog.dismiss();
                 if (msg.what == -1) {
-                    Toast.makeText(getApplicationContext(), "Write operation failed" + ((StatusCode) msg.obj).getDescription() + "\nCode: " + ((StatusCode) msg.obj).getValue().toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Write operation failed" + ((StatusCode) msg.obj).getDescription()
+                            + "\nCode: " + ((StatusCode) msg.obj).getValue().toString(), Toast.LENGTH_LONG).show();
                 } else if (msg.what == -2) {
                     Toast.makeText(getApplicationContext(), "Request timeout", Toast.LENGTH_LONG).show();
                 } else {

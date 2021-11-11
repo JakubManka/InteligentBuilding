@@ -1,5 +1,7 @@
 package pwr.inteligentbuilding.model;
 
+import org.opcfoundation.ua.builtintypes.Variant;
+
 import pwr.inteligentbuilding.OpcUtils.ManagerOPC;
 
 public class Sensor implements Device {
@@ -26,5 +28,10 @@ public class Sensor implements Device {
     @Override
     public void updateStatus() {
 
+    }
+
+    @Override
+    public Variant getStatus() {
+        return null;
     }
 }
