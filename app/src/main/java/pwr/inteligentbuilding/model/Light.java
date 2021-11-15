@@ -32,7 +32,7 @@ public class Light implements Device {
 
     @Override
     public void turnOn() {
-        Variant value_write = new Variant("1");
+        Variant value_write = new Variant("true");
         write(value_write, nodeId + REQ_ON);
     }
 
@@ -45,7 +45,7 @@ public class Light implements Device {
     @Override
     public void updateStatus() {
         SessionElement sessionElement = manager.getSessions().get(0);
-        ThreadRead t = new ThreadRead(sessionElement.getSession(), 0, TimestampsToReturn.Both, namespace, nodeId, Attributes.Value);
+        ThreadRead t = new ThreadRead(sessionElement.getSession(), 0, TimestampsToReturn.Both, namespace, nodeId + IS_ON, Attributes.Value);
         @SuppressLint("HandlerLeak") Handler handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {

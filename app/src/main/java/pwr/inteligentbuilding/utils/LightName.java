@@ -2,6 +2,8 @@ package pwr.inteligentbuilding.utils;
 
 public class LightName {
     private static final String preNode = "|var|CODESYS Control for Raspberry Pi SL.Application.OPC_gvlSwiatla.os";
+//    "|var|CODESYS Control for Raspberry Pi SL.Application.OPC_gvlSwiatla.osBalkonDzieci"
+//    "|var|CODESYS Control for Raspberry Pi SL.Application.OPC_gvlSwiatla.os";
     public static final String OS_BALKON_DZIECI = preNode + "BalkonDzieci";
     public static final String OS_GABINET = preNode + "Gabinet";
     public static final String OS_GARAZ = preNode + "Garaz";
