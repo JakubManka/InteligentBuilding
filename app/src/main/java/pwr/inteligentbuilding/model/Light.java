@@ -6,9 +6,12 @@ import android.annotation.SuppressLint;
 import android.os.Handler;
 import android.os.Message;
 
+import org.opcfoundation.ua.builtintypes.NodeId;
 import org.opcfoundation.ua.builtintypes.Variant;
+import org.opcfoundation.ua.common.ServiceResultException;
 import org.opcfoundation.ua.core.Attributes;
 import org.opcfoundation.ua.core.ReadResponse;
+import org.opcfoundation.ua.core.ReadValueId;
 import org.opcfoundation.ua.core.TimestampsToReturn;
 import org.opcfoundation.ua.core.WriteResponse;
 
@@ -45,17 +48,14 @@ public class Light implements Device {
     @Override
     public void updateStatus() {
         SessionElement sessionElement = manager.getSessions().get(0);
-        ThreadRead t = new ThreadRead(sessionElement.getSession(), 0, TimestampsToReturn.Both, namespace, nodeId + IS_ON, Attributes.Value);
-        @SuppressLint("HandlerLeak") Handler handler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                ReadResponse res = (ReadResponse) msg.obj;
-                System.out.println(res.getResults()[0].getValue());
-                status = res.getResults()[0].getValue();
+        try {
+            ReadResponse res = sessionElement.getSession().Read(null, 0d, TimestampsToReturn.Both,
+                    new ReadValueId(new NodeId(namespace, nodeId + IS_ON), Attributes.Value, null, null));
+            status = res.getResults()[0].getValue();
 
-            }
-        };
-        t.start(handler);
+        } catch (ServiceResultException e) {
+            e.printStackTrace();
+        }
     }
 
     private void write(Variant value, String node) {

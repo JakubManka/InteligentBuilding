@@ -6,19 +6,13 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import pwr.inteligentbuilding.R;
-import pwr.inteligentbuilding.model.Device;
-import pwr.inteligentbuilding.model.Light;
 import pwr.inteligentbuilding.utils.DevicesUtils;
 
 public class FloorActivity extends AppCompatActivity {
@@ -27,7 +21,8 @@ public class FloorActivity extends AppCompatActivity {
     private LinearLayout groundFloor;
     private RelativeLayout gate;
     private ImageView deviceStatus;
-    private ImageView chosenView;
+    private ImageView chosenDevice;
+    AlertDialog dialog;
 
     DevicesUtils devices;
     private boolean isActivityVisible;
@@ -39,7 +34,6 @@ public class FloorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_floor);
         getWindow().setFlags(FLAG_FULLSCREEN, FLAG_FULLSCREEN);
 
-        chosenView = findViewById(R.id.light_2);
         firstFloor = findViewById(R.id.first_floor);
         groundFloor = findViewById(R.id.ground_floor);
         drawerLayout = findViewById(R.id.drawerLayout);
@@ -48,7 +42,6 @@ public class FloorActivity extends AppCompatActivity {
         isActivityVisible = true;
         devices.updateStatus();
     }
-
 
 
     public void ClickMenu(View view) {
@@ -84,56 +77,49 @@ public class FloorActivity extends AppCompatActivity {
     }
 
     public void handleLightClick(View view) {
-        chosenView = (ImageView) view;
+        chosenDevice = (ImageView) view;
         createCustomDialog(R.layout.popup_light);
     }
 
     public void handleSocketClick(View view) {
-        chosenView = (ImageView) view;
+        chosenDevice = (ImageView) view;
         createCustomDialog(R.layout.popup_socket);
     }
 
     public void handleSunblindClick(View view) {
-        chosenView = (ImageView) view;
+        chosenDevice = (ImageView) view;
         createCustomDialog(R.layout.popup_sunblind);
     }
 
     public void handleSensorClick(View view) {
-        chosenView = (ImageView) view;
+        chosenDevice = (ImageView) view;
         createCustomDialog(R.layout.popup_sensor);
     }
 
     public void handleGateClick(View view) {
-        chosenView = (ImageView) view;
+        chosenDevice = (ImageView) view;
         createCustomDialog(R.layout.popup_gate);
     }
 
     public void changeImage(int resId) {
-        chosenView.setImageResource(resId);
-        deviceStatus.setImageResource(resId);
+        if (dialog != null && dialog.isShowing()) {
+            deviceStatus.setImageResource(resId);
+        }
     }
 
     public void handleTurnOn(View v) {
-        devices.getDevices().get(chosenView).turnOn();
-//        System.out.println(deviceStatus.getTag());
-//        if (deviceStatus.getTag().equals("light")) {
-//            changeImage(R.drawable.ic_light_on);
-//        }
-
+        devices.getDevices().get(chosenDevice).turnOn();
     }
 
     public void handleTurnOff(View v) {
-//        if (deviceStatus.getTag().equals("light")) {
-//            changeImage(R.drawable.ic_light_off);
-//        }
-        devices.getDevices().get(chosenView).turnOff();
+        devices.getDevices().get(chosenDevice).turnOff();
     }
 
     private void createCustomDialog(int layout) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         final View contactPopupView = getLayoutInflater().inflate(layout, null);
         dialogBuilder.setView(contactPopupView);
-        AlertDialog dialog = dialogBuilder.create();
+        dialog = dialogBuilder.create();
         dialog.show();
         deviceStatus = dialog.findViewById(R.id.deviceStatus);
     }
@@ -148,6 +134,10 @@ public class FloorActivity extends AppCompatActivity {
     public void onStop() {
         super.onStop();
         isActivityVisible = false;
+    }
+
+    public ImageView getChosenDevice() {
+        return chosenDevice;
     }
 
     public boolean isActivityVisible() {

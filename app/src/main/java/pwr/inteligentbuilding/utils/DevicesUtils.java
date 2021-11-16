@@ -29,15 +29,15 @@ public class DevicesUtils {
     public DevicesUtils(FloorActivity activity) {
         this.activity = activity;
         devices = new HashMap<>();
+        setupDevices();
     }
 
     public Map<ImageView, Device> getDevices() {
         return devices;
     }
 
-    public void setupDevices() {
+    private void setupDevices() {
         int namespace = 4;
-
         devices.put(activity.findViewById(R.id.light_1), new Light(OS_GABINET, namespace));
         devices.put(activity.findViewById(R.id.light_2), new Light(OS_SCHODY, namespace));
         devices.put(activity.findViewById(R.id.light_3), new Light(OS_KOTLOWNIA, namespace));
@@ -77,7 +77,13 @@ public class DevicesUtils {
             public void run() {
                 try {
                     while (activity.isActivityVisible()) {
-                        updateImages();
+                        devices.values().forEach(Device::updateStatus);
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                updateImages();
+                            }
+                        });
                         sleep(1000);
                     }
                 } catch (InterruptedException e) {
@@ -85,16 +91,20 @@ public class DevicesUtils {
                 }
             }
         };
-
         thread.start();
     }
 
-    private void updateImages() {
-        devices.values().forEach(Device::updateStatus);
+    public void updateImages() {
         devices.forEach((key, value) -> {
-            if (value.getStatus().toString().equals("1")) {
+            if (value.getStatus().toString().equals("false")) {
+                if (key.equals(activity.getChosenDevice())) {
+                    activity.changeImage(R.drawable.ic_light_on);
+                }
                 key.setImageResource(R.drawable.ic_light_on);
-            } else if (value.getStatus().toString().equals("0")) {
+            } else if (value.getStatus().toString().equals("true")) {
+                if (key.equals(activity.getChosenDevice())) {
+                    activity.changeImage(R.drawable.ic_light_off);
+                }
                 key.setImageResource(R.drawable.ic_light_off);
             }
         });

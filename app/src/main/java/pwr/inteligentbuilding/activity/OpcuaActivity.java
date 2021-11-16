@@ -79,15 +79,15 @@ public class OpcuaActivity extends AppCompatActivity {
         btnConnects.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                url = "172.21.29.40:4840";
-                System.out.println(url);
-                endpoints_list.clear();
-                if (!edtURL.getText().toString().toLowerCase().startsWith("opc.tcp://"))
-                    url = "opc.tcp://" + edtURL.getText().toString();
-                else
-                    url = edtURL.getText().toString();
+//                url = "172.21.29.40:4840";
+//                System.out.println(url);
+//                endpoints_list.clear();
+//                if (!edtURL.getText().toString().toLowerCase().startsWith("opc.tcp://"))
+//                    url = "opc.tcp://" + edtURL.getText().toString();
+//                else
+//                    url = edtURL.getText().toString();
 
-                url = "opc.tcp://172.21.29.40:4840";
+                url = "opc.tcp://10.1.1.5:4840";
                 Client client = manager.getClient();
                 ThreadDiscoveryEndpoints t = new ThreadDiscoveryEndpoints(client, url);
 
