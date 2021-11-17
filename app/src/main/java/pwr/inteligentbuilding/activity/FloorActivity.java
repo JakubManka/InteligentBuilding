@@ -8,9 +8,17 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import pwr.inteligentbuilding.R;
 import pwr.inteligentbuilding.utils.DevicesUtils;
@@ -22,11 +30,9 @@ public class FloorActivity extends AppCompatActivity {
     private RelativeLayout gate;
     private ImageView deviceStatus;
     private ImageView chosenDevice;
-    AlertDialog dialog;
-
-    DevicesUtils devices;
+    private AlertDialog dialog;
+    private DevicesUtils devices;
     private boolean isActivityVisible;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +48,6 @@ public class FloorActivity extends AppCompatActivity {
         isActivityVisible = true;
         devices.updateStatus();
     }
-
 
     public void ClickMenu(View view) {
         MainActivity.openDrawer(drawerLayout);
@@ -114,6 +119,9 @@ public class FloorActivity extends AppCompatActivity {
     public void handleTurnOff(View v) {
         devices.getDevices().get(chosenDevice).turnOff();
     }
+    public void handleAddAction(View v) {
+
+    }
 
     private void createCustomDialog(int layout) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
@@ -122,6 +130,14 @@ public class FloorActivity extends AppCompatActivity {
         dialog = dialogBuilder.create();
         dialog.show();
         deviceStatus = dialog.findViewById(R.id.deviceStatus);
+        ListView actionsView = dialog.findViewById(R.id.actions);
+        ArrayAdapter<String> actionsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1 ,
+                devices.getDevices().get(chosenDevice).getActions());
+        actionsView.setAdapter(actionsAdapter);
+
+        ArrayAdapter<String> optionsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
+                getResources().getStringArray(R.array.actionOptions));
+        optionsAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
     }
 
     @Override

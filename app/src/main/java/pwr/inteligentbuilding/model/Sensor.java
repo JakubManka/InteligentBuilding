@@ -2,6 +2,8 @@ package pwr.inteligentbuilding.model;
 
 import org.opcfoundation.ua.builtintypes.Variant;
 
+import java.util.List;
+
 import pwr.inteligentbuilding.OpcUtils.ManagerOPC;
 
 public class Sensor implements Device {
@@ -32,6 +34,11 @@ public class Sensor implements Device {
 
     @Override
     public Variant getStatus() {
+        return null;
+    }
+
+    @Override
+    public List<String> getActions() {
         return null;
     }
 }

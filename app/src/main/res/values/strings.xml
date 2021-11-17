@@ -39,5 +39,13 @@
     <string name="connect">Połącz się</string>
     <string name="OPCTopMessage">Wpisz OPC UA Server Address</string>
     <string name="list_endpoint">Lista Endpointów</string>
+    <string name="Add_Action">Dodaj akcje</string>
+    
+    <string-array name="actionOptions">
+        <item>Akcja 1</item>
+        <item>Akcja 2</item>
+        <item>Akcja 3</item>
+        <item>Akcja 4</item>
+    </string-array>
 
 </resources>
