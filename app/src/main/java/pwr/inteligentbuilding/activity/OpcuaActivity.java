@@ -52,7 +52,6 @@ import pwr.inteligentbuilding.OpcUtils.SessionElement;
 import pwr.inteligentbuilding.R;
 
 public class OpcuaActivity extends AppCompatActivity {
-
     EditText edtURL;
     Button btnConnects;
     ManagerOPC manager;
@@ -80,15 +79,15 @@ public class OpcuaActivity extends AppCompatActivity {
         btnConnects.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                url = "192.168.8.113:4840";
-                System.out.println(url);
-                endpoints_list.clear();
-                if (!edtURL.getText().toString().toLowerCase().startsWith("opc.tcp://"))
-                    url = "opc.tcp://" + edtURL.getText().toString();
-                else
-                    url = edtURL.getText().toString();
+//                url = "172.21.29.40:4840";
+//                System.out.println(url);
+//                endpoints_list.clear();
+//                if (!edtURL.getText().toString().toLowerCase().startsWith("opc.tcp://"))
+//                    url = "opc.tcp://" + edtURL.getText().toString();
+//                else
+//                    url = edtURL.getText().toString();
 
-                url = "opc.tcp://192.168.8.113:4840";
+                url = "opc.tcp://10.1.1.5:4840";
                 Client client = manager.getClient();
                 ThreadDiscoveryEndpoints t = new ThreadDiscoveryEndpoints(client, url);
 
@@ -104,6 +103,7 @@ public class OpcuaActivity extends AppCompatActivity {
                             endpoints = selectByProtocol(sortBySecurityLevel((EndpointDescription[]) msg.obj), "opc.tcp");
                             endpoints_list.addAll(Arrays.asList(endpoints));
                         }
+                        createSession();
                     }
                 };
                 t.start(handler_discovery);
@@ -113,7 +113,7 @@ public class OpcuaActivity extends AppCompatActivity {
     }
 
     public void createSession() {
-        ThreadCreateSession t = new ThreadCreateSession(manager, url, endpoints[0]);
+        ThreadCreateSession t = new ThreadCreateSession(manager, url, endpoints[0], this);
         dialog = ProgressDialog.show(OpcuaActivity.this, "connection attempt", "Session creation", true);
         @SuppressLint("HandlerLeak") Handler handler_createsession = new Handler() {
             @Override
@@ -124,18 +124,10 @@ public class OpcuaActivity extends AppCompatActivity {
                             + ((StatusCode) msg.obj).getDescription() + "\nCode: " + ((StatusCode) msg.obj).getValue().toString(), Toast.LENGTH_LONG).show();
                 } else if (msg.what == -2) {
                     Toast.makeText(getApplicationContext(), "Reqest timeout", Toast.LENGTH_LONG).show();
-                } else {
-                    int session_position = (int) msg.obj;
-//                    Intent intent = new Intent(OpcuaActivity.this, SessionActivity.class);
-//                    intent.putExtra("sessionPosition", session_position);
-//                    intent.putExtra("url", manager.getSessions().get(session_position).getUrl());
-//                    startActivity(intent);
-                    System.out.println("chyba dziala");
                 }
             }
         };
         t.start(handler_createsession);
-//        dialogInterface.dismiss();
     }
 
     @Override
@@ -147,33 +139,30 @@ public class OpcuaActivity extends AppCompatActivity {
         manager.getSessions().clear();
     }
 
-
     public void handleRead(View view) {
-        int namespace = 2;
-        int nodeid = 2;
-        sessionElement = manager.getSessions().get(0);
-        ThreadRead t = new ThreadRead(sessionElement.getSession(), 0, TimestampsToReturn.Both, namespace, nodeid, Attributes.Value);
-        ProgressDialog progressDialog = ProgressDialog.show(OpcuaActivity.this, "connecting attempt", "Reading in progress", true);
-        @SuppressLint("HandlerLeak") Handler handler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                if (msg.what == -1) {
-                    Toast.makeText(getApplicationContext(), "Reading not performed" + ((StatusCode) msg.obj).getDescription() + "\nCode: " + ((StatusCode) msg.obj).getValue().toString(), Toast.LENGTH_LONG).show();
-                } else if (msg.what == -2) {
-                    Toast.makeText(getApplicationContext(), "Request timeoit", Toast.LENGTH_LONG).show();
-                } else {
-                    ReadResponse res = (ReadResponse) msg.obj;
-                    System.out.println(res.getResults()[0].getValue().getValue());
-                    System.out.println(res.getResults()[0].getValue());
-//                    listReadings.add(res);
-//                    adapter.notifyDataSetChanged();
-//                    listRead.setSelection(adapter.getCount() - 1);
-                }
-                progressDialog.dismiss();
-            }
-        };
-        t.start(handler);
-        dialog.dismiss();
+        Intent intent = new Intent(this, FloorActivity.class);
+        startActivity(intent);
+//        int namespace = 2;
+//        int nodeid = 2;
+//        sessionElement = manager.getSessions().get(0);
+//        ThreadRead t = new ThreadRead(sessionElement.getSession(), 0, TimestampsToReturn.Both, namespace, nodeid, Attributes.Value);
+//        ProgressDialog progressDialog = ProgressDialog.show(OpcuaActivity.this, "connecting attempt", "Reading in progress", true);
+//        @SuppressLint("HandlerLeak") Handler handler = new Handler() {
+//            @Override
+//            public void handleMessage(Message msg) {
+//                if (msg.what == -1) {
+//                    Toast.makeText(getApplicationContext(), "Reading not performed" + ((StatusCode) msg.obj).getDescription() + "\nCode: " + ((StatusCode) msg.obj).getValue().toString(), Toast.LENGTH_LONG).show();
+//                } else if (msg.what == -2) {
+//                    Toast.makeText(getApplicationContext(), "Request timeoit", Toast.LENGTH_LONG).show();
+//                } else {
+//                    ReadResponse res = (ReadResponse) msg.obj;
+//                    System.out.println(res.getResults()[0].getValue());
+//                }
+//                progressDialog.dismiss();
+//            }
+//        };
+//        t.start(handler);
+//        dialog.dismiss();
     }
 
     public void handleWrite(View view) {
@@ -191,7 +180,8 @@ public class OpcuaActivity extends AppCompatActivity {
             public void handleMessage(Message msg) {
                 progressDialog.dismiss();
                 if (msg.what == -1) {
-                    Toast.makeText(getApplicationContext(), "Write operation failed" + ((StatusCode) msg.obj).getDescription() + "\nCode: " + ((StatusCode) msg.obj).getValue().toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Write operation failed" + ((StatusCode) msg.obj).getDescription()
+                            + "\nCode: " + ((StatusCode) msg.obj).getValue().toString(), Toast.LENGTH_LONG).show();
                 } else if (msg.what == -2) {
                     Toast.makeText(getApplicationContext(), "Request timeout", Toast.LENGTH_LONG).show();
                 } else {

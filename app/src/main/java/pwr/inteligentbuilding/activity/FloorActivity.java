@@ -8,21 +8,31 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import pwr.inteligentbuilding.R;
+import pwr.inteligentbuilding.utils.DevicesUtils;
 
 public class FloorActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private LinearLayout firstFloor;
     private LinearLayout groundFloor;
     private RelativeLayout gate;
-    private AlertDialog.Builder dialogBuilder;
-    private AlertDialog dialog;
     private ImageView deviceStatus;
-
+    private ImageView chosenDevice;
+    private AlertDialog dialog;
+    private DevicesUtils devices;
+    private boolean isActivityVisible;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +40,13 @@ public class FloorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_floor);
         getWindow().setFlags(FLAG_FULLSCREEN, FLAG_FULLSCREEN);
 
-        deviceStatus = findViewById(R.id.deviceStatus);
         firstFloor = findViewById(R.id.first_floor);
         groundFloor = findViewById(R.id.ground_floor);
         drawerLayout = findViewById(R.id.drawerLayout);
-        view = findViewById(R.id.gate);
+        gate = findViewById(R.id.gate);
+        devices = new DevicesUtils(this);
+        isActivityVisible = true;
+        devices.updateStatus();
     }
 
     public void ClickMenu(View view) {
@@ -53,67 +65,98 @@ public class FloorActivity extends AppCompatActivity {
         MainActivity.redirectActivity(this, LightActivity.class);
     }
 
-    public void ClickOPCUA(View view){
+    public void ClickOPCUA(View view) {
         MainActivity.redirectActivity(this, OpcuaActivity.class);
     }
 
     public void handleFirstFloorClick(View view) {
-        this.view.setVisibility(View.GONE);
+        this.gate.setVisibility(View.GONE);
         groundFloor.setVisibility(View.GONE);
         firstFloor.setVisibility(View.VISIBLE);
     }
 
     public void handleGroundFloorClick(View view) {
-        this.view.setVisibility(View.VISIBLE);
+        this.gate.setVisibility(View.VISIBLE);
         firstFloor.setVisibility(View.GONE);
         groundFloor.setVisibility(View.VISIBLE);
     }
 
     public void handleLightClick(View view) {
+        chosenDevice = (ImageView) view;
         createCustomDialog(R.layout.popup_light);
     }
 
     public void handleSocketClick(View view) {
-        ImageView socket = (ImageView) view;
-        changeImage(socket, R.drawable.ic_socket_off, R.drawable.ic_socket_on);
+        chosenDevice = (ImageView) view;
+        createCustomDialog(R.layout.popup_socket);
     }
 
     public void handleSunblindClick(View view) {
-        ImageView sunblind = (ImageView) view;
-        changeImage(sunblind, R.drawable.ic_sunblind_off, R.drawable.ic_sunblind_on);
+        chosenDevice = (ImageView) view;
+        createCustomDialog(R.layout.popup_sunblind);
     }
 
     public void handleSensorClick(View view) {
-        ImageView sensor = (ImageView) view;
-        changeImage(sensor, R.drawable.ic_sensor_off, R.drawable.ic_sensor_on);
+        chosenDevice = (ImageView) view;
+        createCustomDialog(R.layout.popup_sensor);
     }
 
     public void handleGateClick(View view) {
-        ImageView gate = (ImageView) view;
-        changeImage(gate, R.drawable.ic_gate_off, R.drawable.ic_gate_on);
+        chosenDevice = (ImageView) view;
+        createCustomDialog(R.layout.popup_gate);
     }
 
-    public void changeImage(ImageView view, int resIdOff, int resIdOn){
-        if (view.getTag() != null) {
-            int tag = (int) view.getTag();
-            if (tag == resIdOff) {
-                view.setImageResource(resIdOn);
-                view.setTag(resIdOn);
-            } else {
-                view.setImageResource(resIdOff);
-                view.setTag(resIdOff);
-            }
-        } else {
-            view.setImageResource(resIdOn);
-            view.setTag(resIdOn);
+    public void changeImage(int resId) {
+        if (dialog != null && dialog.isShowing()) {
+            deviceStatus.setImageResource(resId);
         }
     }
 
-    private void createCustomDialog(int layout){
-        dialogBuilder = new AlertDialog.Builder(this);
+    public void handleTurnOn(View v) {
+        devices.getDevices().get(chosenDevice).turnOn();
+    }
+
+    public void handleTurnOff(View v) {
+        devices.getDevices().get(chosenDevice).turnOff();
+    }
+    public void handleAddAction(View v) {
+
+    }
+
+    private void createCustomDialog(int layout) {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         final View contactPopupView = getLayoutInflater().inflate(layout, null);
         dialogBuilder.setView(contactPopupView);
         dialog = dialogBuilder.create();
         dialog.show();
+        deviceStatus = dialog.findViewById(R.id.deviceStatus);
+        ListView actionsView = dialog.findViewById(R.id.actions);
+        ArrayAdapter<String> actionsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1 ,
+                devices.getDevices().get(chosenDevice).getActions());
+        actionsView.setAdapter(actionsAdapter);
+
+        ArrayAdapter<String> optionsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
+                getResources().getStringArray(R.array.actionOptions));
+        optionsAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        isActivityVisible = true;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        isActivityVisible = false;
+    }
+
+    public ImageView getChosenDevice() {
+        return chosenDevice;
+    }
+
+    public boolean isActivityVisible() {
+        return isActivityVisible;
     }
 }

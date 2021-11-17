@@ -15,22 +15,40 @@
             android:layout_width="fill_parent"
             android:layout_height="70dp"
             android:layout_gravity="center"
-            android:src="@drawable/ic_light_off" />
+            android:src="@drawable/ic_light_off"
+            android:tag="light" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="40dp"
-        android:layout_weight="2">
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_weight="2"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/turnOnButton"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="2"
             android:backgroundTint="@color/white"
+            android:onClick="handleTurnOn"
             android:text="@string/turnOn"
+            android:textColor="@color/black" />
+
+        <Button
+            android:id="@+id/turnOffButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="2"
+            android:backgroundTint="@color/white"
+            android:onClick="handleTurnOff"
+            android:text="@string/turnOff"
             android:textColor="@color/black" />
 
     </LinearLayout>
@@ -38,16 +56,48 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="40dp"
-        android:layout_weight="2">
-
-        <Button
-            android:id="@+id/turnOffButton"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_weight="2"
+        android:orientation="vertical">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:backgroundTint="@color/white"
-            android:text="@string/turnOff"
-            android:textColor="@color/black" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/addActionButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:backgroundTint="@color/white"
+                android:gravity="center"
+                android:layout_weight="2"
+                android:onClick="handleAddAction"
+                android:text="@string/Add_Action"
+                android:textColor="@color/black" />
+
+            <Button
+                android:id="@+id/editActions"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:backgroundTint="@color/white"
+                android:gravity="center"
+                android:layout_weight="2"
+                android:onClick="handleAddAction"
+                android:text="Edytuj akcje"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+
+
+        <ListView
+            android:id="@+id/actions"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp" />
 
     </LinearLayout>
 
