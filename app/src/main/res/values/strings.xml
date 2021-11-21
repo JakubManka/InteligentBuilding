@@ -6,7 +6,6 @@
     <string name="rooms">Pokoje</string>
     <string name="floors">Piętra</string>
     <string name="temperature">Temperatura</string>
-    <string name="sockets">Gniazdka</string>
     <string name="settings">Ustawienia</string>
     <string name="title_activity_lights">LightsActivity</string>
     <!-- Strings used for fragments for navigation -->
@@ -40,12 +39,52 @@
     <string name="OPCTopMessage">Wpisz OPC UA Server Address</string>
     <string name="list_endpoint">Lista Endpointów</string>
     <string name="Add_Action">Dodaj akcje</string>
-    
+    <string name="edit_actions">Edytuj akcje</string>
+
     <string-array name="actionOptions">
         <item>Akcja 1</item>
         <item>Akcja 2</item>
         <item>Akcja 3</item>
         <item>Akcja 4</item>
+    </string-array>
+
+    <string name="lights">Światła</string>
+    <string name="sockets">Gniazdka</string>
+    <string name="sensors">Czujniki</string>
+    <string name="sunblinds">Żaluzje</string>
+    <string name="gate">Brama</string>
+
+    <string-array name="lights">
+        <item>Gabinet </item>
+        <item>Gabinet nocne</item>
+        <item>Schody</item>
+        <item>Kotłownia</item>
+        <item>Garaż</item>
+        <item>Łazienka parter</item>
+        <item>Kuchnia</item>
+        <item>Salon 1</item>
+        <item>Salon 2</item>
+        <item>Salon 3</item>
+        <item>TV</item>
+    </string-array>
+
+    <string-array name="sockets">
+        <item>Salon </item>
+        <item>Kuchnia</item>
+    </string-array>
+
+    <string-array name="sensors">
+        <item>Salon </item>
+        <item>Kuchnia</item>
+    </string-array>
+
+    <string-array name="sunblinds">
+        <item>Salon </item>
+        <item>Kuchnia</item>
+    </string-array>
+
+    <string-array name="gate">
+        <item>Brama Garażowa </item>
     </string-array>
 
 </resources>

@@ -22,6 +22,7 @@ import pwr.inteligentbuilding.OpcUtils.ConnectionThread.ThreadRead;
 import pwr.inteligentbuilding.OpcUtils.ConnectionThread.ThreadWrite;
 import pwr.inteligentbuilding.OpcUtils.ManagerOPC;
 import pwr.inteligentbuilding.OpcUtils.SessionElement;
+import pwr.inteligentbuilding.R;
 
 public class Light implements Device {
     private final String nodeId;
@@ -95,5 +96,15 @@ public class Light implements Device {
     @Override
     public List<String> getActions() {
         return actions;
+    }
+
+    @Override
+    public int getTurnedOnImage() {
+        return R.drawable.ic_light_on;
+    }
+
+    @Override
+    public int getTurnedOffImage() {
+        return R.drawable.ic_light_off;
     }
 }

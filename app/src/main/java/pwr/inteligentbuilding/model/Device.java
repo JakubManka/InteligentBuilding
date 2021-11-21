@@ -11,4 +11,6 @@ public interface Device {
     public void updateStatus();
     public Variant getStatus();
     public List<String> getActions();
+    public int getTurnedOnImage();
+    public int getTurnedOffImage();
 }

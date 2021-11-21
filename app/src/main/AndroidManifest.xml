@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.InteligentBuilding">
         <activity
+            android:name=".activity.EditActionsActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.FloorActivity"
             android:exported="true" />
         <activity

@@ -61,36 +61,17 @@
         android:layout_marginBottom="20dp"
         android:layout_weight="2"
         android:orientation="vertical">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/addActionButton"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:backgroundTint="@color/white"
-                android:gravity="center"
-                android:layout_weight="2"
-                android:onClick="handleAddAction"
-                android:text="@string/Add_Action"
-                android:textColor="@color/black" />
 
             <Button
                 android:id="@+id/editActions"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:backgroundTint="@color/white"
                 android:gravity="center"
-                android:layout_weight="2"
-                android:onClick="handleAddAction"
-                android:text="Edytuj akcje"
+                android:onClick="handleEditAction"
+                android:text="@string/edit_actions"
                 android:textColor="@color/black" />
-
-        </LinearLayout>
 
 
 

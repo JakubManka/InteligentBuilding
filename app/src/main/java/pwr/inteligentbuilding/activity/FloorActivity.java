@@ -119,8 +119,9 @@ public class FloorActivity extends AppCompatActivity {
     public void handleTurnOff(View v) {
         devices.getDevices().get(chosenDevice).turnOff();
     }
-    public void handleAddAction(View v) {
 
+    public void handleEditAction(View v) {
+        MainActivity.redirectActivity(this, EditActionsActivity.class);
     }
 
     private void createCustomDialog(int layout) {

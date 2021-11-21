@@ -41,4 +41,14 @@ public class Gate implements Device {
     public List<String> getActions() {
         return null;
     }
+
+    @Override
+    public int getTurnedOnImage() {
+        return 0;
+    }
+
+    @Override
+    public int getTurnedOffImage() {
+        return 0;
+    }
 }

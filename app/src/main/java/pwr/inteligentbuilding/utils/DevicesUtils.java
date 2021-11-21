@@ -98,14 +98,14 @@ public class DevicesUtils {
         devices.forEach((key, value) -> {
             if (value.getStatus().toString().equals("true")) {
                 if (key.equals(activity.getChosenDevice())) {
-                    activity.changeImage(R.drawable.ic_light_on);
+                    activity.changeImage(value.getTurnedOnImage());
                 }
-                key.setImageResource(R.drawable.ic_light_on);
+                key.setImageResource(value.getTurnedOnImage());
             } else if (value.getStatus().toString().equals("false")) {
                 if (key.equals(activity.getChosenDevice())) {
-                    activity.changeImage(R.drawable.ic_light_off);
+                    activity.changeImage(value.getTurnedOffImage());
                 }
-                key.setImageResource(R.drawable.ic_light_off);
+                key.setImageResource(value.getTurnedOffImage());
             }
         });
     }
