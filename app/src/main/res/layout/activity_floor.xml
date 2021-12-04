@@ -76,7 +76,8 @@
                         android:id="@+id/light_1"
                         android:layout_width="25dp"
                         android:layout_height="30dp"
-                        android:onClick="handleLightClick"
+                        android:onClick="handleImageClick"
+                        android:tag="@string/light"
                         android:src="@drawable/ic_light_off"
                         android:visibility="visible" />
                 </LinearLayout>
@@ -90,7 +91,8 @@
                         android:id="@+id/light_2"
                         android:layout_width="25dp"
                         android:layout_height="30dp"
-                        android:onClick="handleLightClick"
+                        android:onClick="handleImageClick"
+                        android:tag="@string/light"
                         android:src="@drawable/ic_light_off"
                         android:visibility="visible" />
                 </LinearLayout>
@@ -104,8 +106,9 @@
                         android:id="@+id/socket_1"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:onClick="handleSocketClick"
+                        android:onClick="handleImageClick"
                         android:src="@drawable/ic_socket_off"
+                        android:tag="@string/socket"
                         android:visibility="visible" />
                 </LinearLayout>
             </LinearLayout>
@@ -130,7 +133,8 @@
                         android:id="@+id/light_3"
                         android:layout_width="25dp"
                         android:layout_height="30dp"
-                        android:onClick="handleLightClick"
+                        android:onClick="handleImageClick"
+                        android:tag="@string/light"
                         android:src="@drawable/ic_light_off"
                         android:visibility="visible" />
                 </LinearLayout>
@@ -161,8 +165,9 @@
                         android:id="@+id/sunblind_1"
                         android:layout_width="28dp"
                         android:layout_height="28dp"
-                        android:onClick="handleSunblindClick"
-                        android:src="@drawable/ic_sunblind_off" />
+                        android:onClick="handleImageClick"
+                        android:src="@drawable/ic_sunblind_off"
+                        android:tag="@string/sunblind"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -174,7 +179,8 @@
                         android:id="@+id/light_4"
                         android:layout_width="25dp"
                         android:layout_height="30dp"
-                        android:onClick="handleLightClick"
+                        android:onClick="handleImageClick"
+                        android:tag="@string/light"
                         android:src="@drawable/ic_light_off" />
                 </LinearLayout>
 
@@ -187,8 +193,9 @@
                         android:id="@+id/sensor_1"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:onClick="handleSensorClick"
-                        android:src="@drawable/ic_sensor_off" />
+                        android:onClick="handleImageClick"
+                        android:src="@drawable/ic_sensor_off"
+                        android:tag="@string/sensor"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -200,7 +207,8 @@
                         android:id="@+id/light_5"
                         android:layout_width="25dp"
                         android:layout_height="30dp"
-                        android:onClick="handleLightClick"
+                        android:onClick="handleImageClick"
+                        android:tag="@string/light"
                         android:src="@drawable/ic_light_off" />
                 </LinearLayout>
             </LinearLayout>
@@ -226,8 +234,9 @@
                         android:id="@+id/socket_2"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:onClick="handleSocketClick"
-                        android:src="@drawable/ic_socket_off" />
+                        android:onClick="handleImageClick"
+                        android:src="@drawable/ic_socket_off"
+                        android:tag="@string/socket"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -239,8 +248,9 @@
                         android:id="@+id/sensor_2"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:onClick="handleSensorClick"
-                        android:src="@drawable/ic_sensor_off" />
+                        android:onClick="handleImageClick"
+                        android:src="@drawable/ic_sensor_off"
+                        android:tag="@string/sensor"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -252,8 +262,9 @@
                         android:id="@+id/socket_3"
                         android:layout_width="23dp"
                         android:layout_height="23dp"
-                        android:onClick="handleSocketClick"
-                        android:src="@drawable/ic_socket_off" />
+                        android:onClick="handleImageClick"
+                        android:src="@drawable/ic_socket_off"
+                        android:tag="@string/socket"/>
 
                 </LinearLayout>
 
@@ -266,7 +277,8 @@
                         android:id="@+id/light_6"
                         android:layout_width="25dp"
                         android:layout_height="30dp"
-                        android:onClick="handleLightClick"
+                        android:onClick="handleImageClick"
+                        android:tag="@string/light"
                         android:src="@drawable/ic_light_off" />
 
                 </LinearLayout>
@@ -280,8 +292,9 @@
                         android:id="@+id/sensor_3"
                         android:layout_width="23dp"
                         android:layout_height="23dp"
-                        android:onClick="handleSensorClick"
-                        android:src="@drawable/ic_sensor_off" />
+                        android:onClick="handleImageClick"
+                        android:src="@drawable/ic_sensor_off"
+                        android:tag="@string/sensor"/>
 
                 </LinearLayout>
 
@@ -294,8 +307,9 @@
                         android:id="@+id/socket_4"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:onClick="handleSocketClick"
-                        android:src="@drawable/ic_socket_off" />
+                        android:onClick="handleImageClick"
+                        android:src="@drawable/ic_socket_off"
+                        android:tag="@string/socket"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -307,8 +321,9 @@
                         android:id="@+id/sensor_4"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:onClick="handleSensorClick"
-                        android:src="@drawable/ic_sensor_off" />
+                        android:onClick="handleImageClick"
+                        android:src="@drawable/ic_sensor_off"
+                        android:tag="@string/sensor"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -333,8 +348,9 @@
                         android:id="@+id/sunblind_2"
                         android:layout_width="28dp"
                         android:layout_height="28dp"
-                        android:onClick="handleSunblindClick"
-                        android:src="@drawable/ic_sunblind_off" />
+                        android:onClick="handleImageClick"
+                        android:src="@drawable/ic_sunblind_off"
+                        android:tag="@string/sunblind"/>
 
                 </LinearLayout>
 
@@ -347,8 +363,9 @@
                         android:id="@+id/sensor_5"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:onClick="handleSensorClick"
-                        android:src="@drawable/ic_sensor_off" />
+                        android:onClick="handleImageClick"
+                        android:src="@drawable/ic_sensor_off"
+                        android:tag="@string/sensor"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -372,8 +389,9 @@
                         android:id="@+id/socket_5"
                         android:layout_width="23dp"
                         android:layout_height="23dp"
-                        android:onClick="handleSocketClick"
-                        android:src="@drawable/ic_socket_off" />
+                        android:onClick="handleImageClick"
+                        android:src="@drawable/ic_socket_off"
+                        android:tag="@string/socket"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -385,7 +403,8 @@
                         android:id="@+id/light_7"
                         android:layout_width="25dp"
                         android:layout_height="30dp"
-                        android:onClick="handleLightClick"
+                        android:onClick="handleImageClick"
+                        android:tag="@string/light"
                         android:src="@drawable/ic_light_off" />
                 </LinearLayout>
 
@@ -398,7 +417,8 @@
                         android:id="@+id/light_8"
                         android:layout_width="25dp"
                         android:layout_height="30dp"
-                        android:onClick="handleLightClick"
+                        android:onClick="handleImageClick"
+                        android:tag="@string/light"
                         android:src="@drawable/ic_light_off" />
                 </LinearLayout>
 
@@ -411,7 +431,8 @@
                         android:id="@+id/light_9"
                         android:layout_width="25dp"
                         android:layout_height="30dp"
-                        android:onClick="handleLightClick"
+                        android:onClick="handleImageClick"
+                        android:tag="@string/light"
                         android:src="@drawable/ic_light_off" />
                 </LinearLayout>
 
@@ -424,7 +445,8 @@
                         android:id="@+id/light_10"
                         android:layout_width="25dp"
                         android:layout_height="30dp"
-                        android:onClick="handleLightClick"
+                        android:onClick="handleImageClick"
+                        android:tag="@string/light"
                         android:src="@drawable/ic_light_off" />
                 </LinearLayout>
 
@@ -452,8 +474,9 @@
                         android:id="@+id/sunblind_3"
                         android:layout_width="28dp"
                         android:layout_height="28dp"
-                        android:onClick="handleSunblindClick"
-                        android:src="@drawable/ic_sunblind_off" />
+                        android:onClick="handleImageClick"
+                        android:src="@drawable/ic_sunblind_off"
+                        android:tag="@string/sunblind"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -465,7 +488,8 @@
                         android:id="@+id/light_11"
                         android:layout_width="25dp"
                         android:layout_height="30dp"
-                        android:onClick="handleLightClick"
+                        android:onClick="handleImageClick"
+                        android:tag="@string/light"
                         android:src="@drawable/ic_light_off" />
                 </LinearLayout>
 
@@ -478,8 +502,9 @@
                         android:id="@+id/sunblind_4"
                         android:layout_width="28dp"
                         android:layout_height="28dp"
-                        android:onClick="handleSunblindClick"
-                        android:src="@drawable/ic_sunblind_off" />
+                        android:onClick="handleImageClick"
+                        android:src="@drawable/ic_sunblind_off"
+                        android:tag="@string/sunblind"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -505,8 +530,9 @@
                         android:id="@+id/sunblind_5"
                         android:layout_width="28dp"
                         android:layout_height="28dp"
-                        android:onClick="handleSunblindClick"
-                        android:src="@drawable/ic_sunblind_off" />
+                        android:onClick="handleImageClick"
+                        android:src="@drawable/ic_sunblind_off"
+                        android:tag="@string/sunblind"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -518,8 +544,9 @@
                         android:id="@+id/sunblind_6"
                         android:layout_width="28dp"
                         android:layout_height="28dp"
-                        android:onClick="handleSunblindClick"
-                        android:src="@drawable/ic_sunblind_off" />
+                        android:onClick="handleImageClick"
+                        android:src="@drawable/ic_sunblind_off"
+                        android:tag="@string/sunblind"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -531,8 +558,9 @@
                         android:id="@+id/sunblind_7"
                         android:layout_width="28dp"
                         android:layout_height="28dp"
-                        android:onClick="handleSunblindClick"
-                        android:src="@drawable/ic_sunblind_off" />
+                        android:onClick="handleImageClick"
+                        android:src="@drawable/ic_sunblind_off"
+                        android:tag="@string/sunblind"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -544,8 +572,9 @@
                         android:id="@+id/socket_6"
                         android:layout_width="23dp"
                         android:layout_height="23dp"
-                        android:onClick="handleSocketClick"
-                        android:src="@drawable/ic_socket_off" />
+                        android:onClick="handleImageClick"
+                        android:src="@drawable/ic_socket_off"
+                        android:tag="@string/socket"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -557,8 +586,9 @@
                         android:id="@+id/sunblind_8"
                         android:layout_width="28dp"
                         android:layout_height="28dp"
-                        android:onClick="handleSunblindClick"
-                        android:src="@drawable/ic_sunblind_off" />
+                        android:onClick="handleImageClick"
+                        android:src="@drawable/ic_sunblind_off"
+                        android:tag="@string/sunblind"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -585,8 +615,9 @@
     <ImageView
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:onClick="handleGateClick"
-        android:src="@drawable/ic_gate_off" />
+        android:onClick="handleImageClick"
+        android:src="@drawable/ic_gate_off"
+        android:tag="@string/gate"/>
 </RelativeLayout>
     <RelativeLayout
         android:layout_width="300dp"

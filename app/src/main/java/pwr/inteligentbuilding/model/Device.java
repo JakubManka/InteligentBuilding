@@ -6,11 +6,11 @@ import java.util.List;
 
 public interface Device {
 
-    public void turnOn();
-    public void turnOff();
-    public void updateStatus();
-    public Variant getStatus();
-    public List<String> getActions();
-    public int getTurnedOnImage();
-    public int getTurnedOffImage();
+    void turnOn();
+    void turnOff();
+    void updateStatus();
+    Variant getStatus();
+    List<oneAction> getActions();
+    int getTurnedOnImage();
+    int getTurnedOffImage();
 }

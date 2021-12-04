@@ -1,4 +1,4 @@
-package pwr.inteligentbuilding.OpcUtils;
+package pwr.inteligentbuilding.utils.opcUtils;
 
 import org.opcfoundation.ua.application.SessionChannel;
 import org.opcfoundation.ua.common.ServiceResultException;
@@ -8,13 +8,13 @@ import org.opcfoundation.ua.core.CreateSubscriptionResponse;
 import java.util.ArrayList;
 import java.util.List;
 
-import pwr.inteligentbuilding.OpcUtils.ConnectionThread.ThreadPublish;
+import pwr.inteligentbuilding.utils.opcUtils.ConnectionThread.ThreadPublish;
 
 
 public class SessionElement {
-    private SessionChannel session;
-    private String url;
-    private List<SubscriptionElement> subscriptions;
+    private final SessionChannel session;
+    private final String url;
+    private final List<SubscriptionElement> subscriptions;
 
     private boolean running = false;
     private ThreadPublish thread = null;

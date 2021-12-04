@@ -51,8 +51,19 @@
     <string name="lights">Światła</string>
     <string name="sockets">Gniazdka</string>
     <string name="sensors">Czujniki</string>
+    <string name="sensor">Czujnik</string>
     <string name="sunblinds">Żaluzje</string>
+    <string name="sunblind">Żaluzja</string>
     <string name="gate">Brama</string>
+
+
+    <string-array name="deviceType">
+        <item>Światła</item>
+        <item>Gniazdka</item>
+        <item>Czujniki</item>
+        <item>Żaluzje</item>
+        <item>Brama</item>
+    </string-array>
 
     <string-array name="lights">
         <item>Gabinet </item>

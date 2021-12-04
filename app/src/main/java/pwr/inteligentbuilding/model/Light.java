@@ -18,10 +18,9 @@ import org.opcfoundation.ua.core.WriteResponse;
 import java.util.ArrayList;
 import java.util.List;
 
-import pwr.inteligentbuilding.OpcUtils.ConnectionThread.ThreadRead;
-import pwr.inteligentbuilding.OpcUtils.ConnectionThread.ThreadWrite;
-import pwr.inteligentbuilding.OpcUtils.ManagerOPC;
-import pwr.inteligentbuilding.OpcUtils.SessionElement;
+import pwr.inteligentbuilding.utils.opcUtils.ConnectionThread.ThreadWrite;
+import pwr.inteligentbuilding.utils.opcUtils.ManagerOPC;
+import pwr.inteligentbuilding.utils.opcUtils.SessionElement;
 import pwr.inteligentbuilding.R;
 
 public class Light implements Device {
@@ -29,7 +28,7 @@ public class Light implements Device {
     private final int namespace;
     private final ManagerOPC manager;
     private Variant status;
-    private List<String> actions;
+    private final List<oneAction> actions;
 
     public Light(String nodeId, int namespace) {
         this.nodeId = nodeId;
@@ -37,13 +36,6 @@ public class Light implements Device {
         this.manager = ManagerOPC.getIstance();
         status = new Variant("undefined");
         actions = new ArrayList<>();
-        actions.add("akcja 1");
-        actions.add("akcja 2");
-        actions.add("akcja 3");
-        actions.add("akcja 4");
-        actions.add("akcja 5");
-        actions.add("akcja 6");
-        actions.add("akcja 7");
     }
 
     @Override
@@ -94,7 +86,7 @@ public class Light implements Device {
     }
 
     @Override
-    public List<String> getActions() {
+    public List<oneAction> getActions() {
         return actions;
     }
 

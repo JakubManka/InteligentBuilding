@@ -1,71 +1,69 @@
 package pwr.inteligentbuilding.activity;
 
+import static android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ExpandableListView;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import pwr.inteligentbuilding.R;
+import pwr.inteligentbuilding.utils.Drawer;
 
-public class EditActionsActivity extends AppCompatActivity {
+public class EditActionsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    private ExpandableListView devicesView;
-    private List<String> deviceTypes;
-    private Map<String, List<String>> devices;
     private DrawerLayout drawerLayout;
+    private Spinner deviceType;
+    private Spinner deviceName;
+    private ArrayAdapter<CharSequence> typeAdapter;
+    private ArrayAdapter<CharSequence> nameAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_actions);
+        getWindow().setFlags(FLAG_FULLSCREEN, FLAG_FULLSCREEN);
 
-        devicesView = findViewById(R.id.devices);
-        devices = new HashMap<>();
-        deviceTypes = new ArrayList<>();
         drawerLayout = findViewById(R.id.drawerLayout);
+        deviceType = findViewById(R.id.deviceType);
+        deviceName = findViewById(R.id.deviceName);
+        typeAdapter = ArrayAdapter.createFromResource(this, R.array.deviceType, android.R.layout.simple_spinner_item);
+        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        nameAdapter = ArrayAdapter.createFromResource(this, R.array.lights, android.R.layout.simple_spinner_item);
+        nameAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        deviceType.setAdapter(typeAdapter);
+        deviceType.setOnItemSelectedListener(this);
+        deviceName.setAdapter(nameAdapter);
     }
 
-    private void initListData(){
-        deviceTypes.add(getString(R.string.lights));
-        deviceTypes.add(getString(R.string.sockets));
-        deviceTypes.add(getString(R.string.sunblinds));
-        deviceTypes.add(getString(R.string.sensors));
-        deviceTypes.add(getString(R.string.gate));
-
-        List<String> lights = Arrays.asList(getResources().getStringArray(R.array.lights));
-        List<String> sensors = Arrays.asList(getResources().getStringArray(R.array.sensors));
-        List<String> sockets = Arrays.asList(getResources().getStringArray(R.array.sockets));
-        List<String> sunblinds = Arrays.asList(getResources().getStringArray(R.array.sunblinds));
-        List<String> gate = Arrays.asList(getResources().getStringArray(R.array.gate));
-
-        devices.put(deviceTypes.get(0), lights);
-    }
 
     public void ClickMenu(View view) {
-        MainActivity.openDrawer(drawerLayout);
+        Drawer.openDrawer(drawerLayout);
     }
 
     public void ClickFloor(View view) {
-        MainActivity.redirectActivity(this, FloorActivity.class);
-    }
-
-    public void ClickRoom(View view) {
-        MainActivity.redirectActivity(this, RoomActivity.class);
-    }
-
-    public void ClickLight(View view) {
-        MainActivity.redirectActivity(this, LightActivity.class);
+        Drawer.redirectActivity(this, FloorActivity.class);
     }
 
     public void ClickOPCUA(View view) {
-        MainActivity.redirectActivity(this, OpcuaActivity.class);
+        Drawer.redirectActivity(this, OpcuaActivity.class);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        String text = adapterView.getItemAtPosition(i).toString();
+        Toast.makeText(adapterView.getContext(), text, Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }

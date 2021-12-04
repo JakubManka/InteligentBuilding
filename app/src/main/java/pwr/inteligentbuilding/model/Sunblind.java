@@ -2,19 +2,24 @@ package pwr.inteligentbuilding.model;
 
 import org.opcfoundation.ua.builtintypes.Variant;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import pwr.inteligentbuilding.OpcUtils.ManagerOPC;
+import pwr.inteligentbuilding.utils.opcUtils.ManagerOPC;
 
 public class Sunblind implements Device {
-    String nodeId;
-    int namespace;
-    ManagerOPC manager;
+    private final String nodeId;
+    private final int namespace;
+    private final ManagerOPC manager;
+    private Variant status;
+    private final List<oneAction> actions;
 
     public Sunblind(String nodeId, int namespace) {
         this.nodeId = nodeId;
         this.namespace = namespace;
-        manager = ManagerOPC.getIstance();
+        this.manager = ManagerOPC.getIstance();
+        status = new Variant("undefined");
+        actions = new ArrayList<>();
     }
 
     @Override
@@ -38,8 +43,8 @@ public class Sunblind implements Device {
     }
 
     @Override
-    public List<String> getActions() {
-        return null;
+    public List<oneAction> getActions() {
+        return actions;
     }
 
     @Override

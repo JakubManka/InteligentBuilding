@@ -12,8 +12,11 @@ import static pwr.inteligentbuilding.utils.LightName.OS_SALON_3;
 import static pwr.inteligentbuilding.utils.LightName.OS_SCHODY;
 import static pwr.inteligentbuilding.utils.LightName.OS_TV;
 
+
+import android.app.Activity;
 import android.widget.ImageView;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,21 +25,24 @@ import pwr.inteligentbuilding.activity.FloorActivity;
 import pwr.inteligentbuilding.model.Device;
 import pwr.inteligentbuilding.model.Light;
 
-public class DevicesUtils {
+public class DevicesUtils implements Serializable {
     private final Map<ImageView, Device> devices;
-    private final FloorActivity activity;
+    private FloorActivity activity;
+    int i = 0;
 
-    public DevicesUtils(FloorActivity activity) {
-        this.activity = activity;
+    public DevicesUtils() {
         devices = new HashMap<>();
-        setupDevices();
     }
 
     public Map<ImageView, Device> getDevices() {
+//        System.out.println(i+1);
+//        i++;
         return devices;
     }
 
-    private void setupDevices() {
+    public void setupDevices(FloorActivity activity) {
+        System.out.println("set devices" + this);
+        this.activity = activity;
         int namespace = 4;
         devices.put(activity.findViewById(R.id.light_1), new Light(OS_GABINET, namespace));
         devices.put(activity.findViewById(R.id.light_2), new Light(OS_SCHODY, namespace));
@@ -71,29 +77,6 @@ public class DevicesUtils {
 //        devices.put(activity.findViewById(R.id.gate), new Gate("2", namespace));
     }
 
-    public void updateStatus() {
-        Thread thread = new Thread() {
-            @Override
-            public void run() {
-                try {
-                    while (activity.isActivityVisible()) {
-                        devices.values().forEach(Device::updateStatus);
-                        activity.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                updateImages();
-                            }
-                        });
-                        sleep(1000);
-                    }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-        thread.start();
-    }
-
     public void updateImages() {
         devices.forEach((key, value) -> {
             if (value.getStatus().toString().equals("true")) {
@@ -109,4 +92,14 @@ public class DevicesUtils {
             }
         });
     }
+
+    public FloorActivity getActivity() {
+        return activity;
+    }
+
+    public void setActivity(FloorActivity activity) {
+        this.activity = activity;
+    }
+
+
 }

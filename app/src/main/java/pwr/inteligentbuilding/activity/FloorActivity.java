@@ -8,20 +8,21 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.opcfoundation.ua.builtintypes.Variant;
+
+import java.util.Objects;
 
 import pwr.inteligentbuilding.R;
+import pwr.inteligentbuilding.model.Device;
 import pwr.inteligentbuilding.utils.DevicesUtils;
+import pwr.inteligentbuilding.utils.Drawer;
+import pwr.inteligentbuilding.utils.OpcuaConnection;
 
 public class FloorActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
@@ -32,7 +33,6 @@ public class FloorActivity extends AppCompatActivity {
     private ImageView chosenDevice;
     private AlertDialog dialog;
     private DevicesUtils devices;
-    private boolean isActivityVisible;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,33 +40,28 @@ public class FloorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_floor);
         getWindow().setFlags(FLAG_FULLSCREEN, FLAG_FULLSCREEN);
 
+        DevicesUtils devices = new DevicesUtils();
+        OpcuaConnection opcua = new OpcuaConnection(this, getFilesDir(), devices);
+        opcua.connect();
+
         firstFloor = findViewById(R.id.first_floor);
         groundFloor = findViewById(R.id.ground_floor);
         drawerLayout = findViewById(R.id.drawerLayout);
         gate = findViewById(R.id.gate);
-        devices = new DevicesUtils(this);
-        isActivityVisible = true;
-        devices.updateStatus();
+        devices.setupDevices(this);
+        images();
     }
 
     public void ClickMenu(View view) {
-        MainActivity.openDrawer(drawerLayout);
+        Drawer.openDrawer(drawerLayout);
     }
 
     public void ClickFloor(View view) {
-        MainActivity.redirectActivity(this, FloorActivity.class);
-    }
-
-    public void ClickRoom(View view) {
-        MainActivity.redirectActivity(this, RoomActivity.class);
-    }
-
-    public void ClickLight(View view) {
-        MainActivity.redirectActivity(this, LightActivity.class);
+        Drawer.redirectActivity(this, FloorActivity.class);
     }
 
     public void ClickOPCUA(View view) {
-        MainActivity.redirectActivity(this, OpcuaActivity.class);
+        Drawer.redirectActivity(this, OpcuaActivity.class);
     }
 
     public void handleFirstFloorClick(View view) {
@@ -81,34 +76,78 @@ public class FloorActivity extends AppCompatActivity {
         groundFloor.setVisibility(View.VISIBLE);
     }
 
-    public void handleLightClick(View view) {
+    public void handleImageClick(View view) {
         chosenDevice = (ImageView) view;
-        createCustomDialog(R.layout.popup_light);
-    }
-
-    public void handleSocketClick(View view) {
-        chosenDevice = (ImageView) view;
-        createCustomDialog(R.layout.popup_socket);
-    }
-
-    public void handleSunblindClick(View view) {
-        chosenDevice = (ImageView) view;
-        createCustomDialog(R.layout.popup_sunblind);
-    }
-
-    public void handleSensorClick(View view) {
-        chosenDevice = (ImageView) view;
-        createCustomDialog(R.layout.popup_sensor);
-    }
-
-    public void handleGateClick(View view) {
-        chosenDevice = (ImageView) view;
-        createCustomDialog(R.layout.popup_gate);
+        createCustomDialog(R.layout.popup);
     }
 
     public void changeImage(int resId) {
         if (dialog != null && dialog.isShowing()) {
             deviceStatus.setImageResource(resId);
+        }
+    }
+
+    private void images() {
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+                while(true){
+                    try {
+                        sleep(1000);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                devices.updateImages();
+                            }
+                        });
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        thread.start();
+    }
+
+    public void updateImage(String tag) {
+        deviceStatus = dialog.findViewById(R.id.deviceStatus);
+        Device device = devices.getDevices().get(chosenDevice);
+        Variant statusTrue = new Variant(true);
+        if (tag.equals(getString(R.string.light))) {
+            if (Objects.equals(device.getStatus(), statusTrue)) {
+                deviceStatus.setImageResource(R.drawable.ic_light_on);
+            } else {
+                deviceStatus.setImageResource(R.drawable.ic_light_off);
+            }
+
+        } else if (tag.equals(getString(R.string.socket))) {
+            if (Objects.equals(device.getStatus(), statusTrue)) {
+                deviceStatus.setImageResource(R.drawable.ic_socket_on);
+            } else {
+                deviceStatus.setImageResource(R.drawable.ic_socket_off);
+            }
+
+        } else if (tag.equals(getString(R.string.sensor))) {
+            if (Objects.equals(device.getStatus(), statusTrue)) {
+                deviceStatus.setImageResource(R.drawable.ic_sensor_on);
+            } else {
+                deviceStatus.setImageResource(R.drawable.ic_sensor_off);
+            }
+
+        } else if (tag.equals(getString(R.string.sunblind))) {
+            if (Objects.equals(device.getStatus(), statusTrue)) {
+                deviceStatus.setImageResource(R.drawable.ic_sunblind_on);
+            } else {
+                deviceStatus.setImageResource(R.drawable.ic_sunblind_off);
+            }
+
+        } else if (tag.equals(getString(R.string.gate))) {
+            if (Objects.equals(device.getStatus(), statusTrue)) {
+                deviceStatus.setImageResource(R.drawable.ic_gate_on);
+            } else {
+                deviceStatus.setImageResource(R.drawable.ic_gate_off);
+            }
+
         }
     }
 
@@ -121,7 +160,7 @@ public class FloorActivity extends AppCompatActivity {
     }
 
     public void handleEditAction(View v) {
-        MainActivity.redirectActivity(this, EditActionsActivity.class);
+        Drawer.redirectActivity(this, EditActionsActivity.class);
     }
 
     private void createCustomDialog(int layout) {
@@ -130,11 +169,11 @@ public class FloorActivity extends AppCompatActivity {
         dialogBuilder.setView(contactPopupView);
         dialog = dialogBuilder.create();
         dialog.show();
-        deviceStatus = dialog.findViewById(R.id.deviceStatus);
+        updateImage(chosenDevice.getTag().toString());
         ListView actionsView = dialog.findViewById(R.id.actions);
-        ArrayAdapter<String> actionsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1 ,
-                devices.getDevices().get(chosenDevice).getActions());
-        actionsView.setAdapter(actionsAdapter);
+//        ArrayAdapter<String> actionsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1 ,
+//                devices.getDevices().get(chosenDevice).getActions());
+//        actionsView.setAdapter(actionsAdapter);
 
         ArrayAdapter<String> optionsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
                 getResources().getStringArray(R.array.actionOptions));
@@ -144,20 +183,14 @@ public class FloorActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        isActivityVisible = true;
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        isActivityVisible = false;
     }
 
     public ImageView getChosenDevice() {
         return chosenDevice;
-    }
-
-    public boolean isActivityVisible() {
-        return isActivityVisible;
     }
 }

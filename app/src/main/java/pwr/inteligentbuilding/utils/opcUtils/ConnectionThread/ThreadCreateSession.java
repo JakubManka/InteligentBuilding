@@ -1,5 +1,6 @@
-package pwr.inteligentbuilding.OpcUtils.ConnectionThread;
+package pwr.inteligentbuilding.utils.opcUtils.ConnectionThread;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
@@ -7,26 +8,23 @@ import android.os.Message;
 import org.opcfoundation.ua.common.ServiceResultException;
 import org.opcfoundation.ua.core.EndpointDescription;
 
-import pwr.inteligentbuilding.OpcUtils.ManagerOPC;
+import pwr.inteligentbuilding.utils.opcUtils.ManagerOPC;
 import pwr.inteligentbuilding.activity.FloorActivity;
 import pwr.inteligentbuilding.activity.OpcuaActivity;
 
 
 public class ThreadCreateSession extends Thread {
 
-    private Handler handler;
-    private ManagerOPC gestore;
-    private EndpointDescription endpointDescription;
-    private String url;
+    private final ManagerOPC gestore;
+    private final EndpointDescription endpointDescription;
+    private final String url;
     private int position = -1;
     private boolean sent = false;
-    private OpcuaActivity activity;
 
-    public ThreadCreateSession(ManagerOPC gestore, String url, EndpointDescription endpointDescription, OpcuaActivity activity) {
+    public ThreadCreateSession(ManagerOPC gestore, String url, EndpointDescription endpointDescription) {
         this.gestore = gestore;
         this.endpointDescription = endpointDescription;
         this.url = url;
-        this.activity = activity;
     }
 
     private synchronized void send(Message msg) {
@@ -36,34 +34,28 @@ public class ThreadCreateSession extends Thread {
         }
     }
 
-    public void start(Handler handler) {
+    public void start() {
         super.start();
-        this.handler = handler;
     }
 
     @Override
     public void run() {
         super.run();
-        try {
             Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {
                     try {
                         position = gestore.CreateSession(url, endpointDescription);
-                        send(handler.obtainMessage(0, position));
                     } catch (ServiceResultException e) {
-                        send(handler.obtainMessage(-1, e.getStatusCode()));
+                        e.printStackTrace();
                     }
-                    Intent intent = new Intent(activity, FloorActivity.class);
-                    activity.startActivity(intent);
                 }
             });
             t.start();
+        try {
             t.join(8000);
-            send(handler.obtainMessage(-2));
         } catch (InterruptedException e) {
-            send(handler.obtainMessage(-2));
-
+            e.printStackTrace();
         }
     }
 }

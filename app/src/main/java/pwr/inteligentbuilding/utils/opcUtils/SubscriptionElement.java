@@ -1,4 +1,4 @@
-package pwr.inteligentbuilding.OpcUtils;
+package pwr.inteligentbuilding.utils.opcUtils;
 
 
 import org.opcfoundation.ua.application.SessionChannel;
@@ -15,11 +15,11 @@ import java.util.List;
 
 
 public class SubscriptionElement {
-    private CreateSubscriptionResponse subscription;
-    private List<MonitoredItemElement> monitoreditems;
-    private SessionChannel sessionChannel;
+    private final CreateSubscriptionResponse subscription;
+    private final List<MonitoredItemElement> monitoreditems;
+    private final SessionChannel sessionChannel;
 
-    private SubscriptionAcknowledgement subAck;
+    private final SubscriptionAcknowledgement subAck;
 
     public void setLastSeqNumber(UnsignedInteger lastSeqNumber) {
         subAck.setSequenceNumber(lastSeqNumber);
