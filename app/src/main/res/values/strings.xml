@@ -41,13 +41,6 @@
     <string name="Add_Action">Dodaj akcje</string>
     <string name="edit_actions">Edytuj akcje</string>
 
-    <string-array name="actionOptions">
-        <item>Akcja 1</item>
-        <item>Akcja 2</item>
-        <item>Akcja 3</item>
-        <item>Akcja 4</item>
-    </string-array>
-
     <string name="lights">Światła</string>
     <string name="sockets">Gniazdka</string>
     <string name="sensors">Czujniki</string>
@@ -55,6 +48,14 @@
     <string name="sunblinds">Żaluzje</string>
     <string name="sunblind">Żaluzja</string>
     <string name="gate">Brama</string>
+    <string name="chooseHour">Wybierz godzine</string>
+    <string name="Add">Dodaj</string>
+    <string name="Actions">Akcje</string>
+    <string name="triggerFunction">TriggerFunction</string>
+    <string name="functionParam">functionParam</string>
+    <string name="actionFunction">actionFunction</string>
+    <string name="actionParam">actionParam</string>
+    <string name="save_and_quit">Zapisz i wyjdź</string>
 
 
     <string-array name="deviceType">
@@ -66,10 +67,10 @@
     </string-array>
 
     <string-array name="lights">
-        <item>Gabinet </item>
-        <item>Gabinet nocne</item>
+        <item>Gabinet</item>
         <item>Schody</item>
         <item>Kotłownia</item>
+        <item>Gabinet nocne</item>
         <item>Garaż</item>
         <item>Łazienka parter</item>
         <item>Kuchnia</item>
@@ -96,6 +97,25 @@
 
     <string-array name="gate">
         <item>Brama Garażowa </item>
+    </string-array>
+
+    <string-array name="triggerFunctions">
+        <item></item>
+        <item>OnTime</item>
+        <item>OnSunRise</item>
+        <item>OnSunSet</item>
+    </string-array>
+
+    <string-array name="actionFunction">
+        <item></item>
+        <item>Turn On</item>
+        <item>Turn Off</item>
+    </string-array>
+
+    <string-array name="actionParam">
+        <item></item>
+        <item>Param 1</item>
+        <item>Param 2</item>
     </string-array>
 
 </resources>

@@ -17,9 +17,6 @@
             android:name=".activity.EditActionsActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.FloorActivity"
-            android:exported="true" />
-        <activity
             android:name=".activity.MainActivity"
             android:exported="true">
             <intent-filter>

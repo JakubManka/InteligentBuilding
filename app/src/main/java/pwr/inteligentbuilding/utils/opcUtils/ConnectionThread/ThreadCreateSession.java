@@ -1,16 +1,11 @@
 package pwr.inteligentbuilding.utils.opcUtils.ConnectionThread;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Handler;
 import android.os.Message;
 
 import org.opcfoundation.ua.common.ServiceResultException;
 import org.opcfoundation.ua.core.EndpointDescription;
 
 import pwr.inteligentbuilding.utils.opcUtils.ManagerOPC;
-import pwr.inteligentbuilding.activity.FloorActivity;
-import pwr.inteligentbuilding.activity.OpcuaActivity;
 
 
 public class ThreadCreateSession extends Thread {

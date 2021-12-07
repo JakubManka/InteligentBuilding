@@ -6,7 +6,6 @@ import static org.opcfoundation.ua.utils.EndpointUtil.sortBySecurityLevel;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
 import android.widget.ImageView;
@@ -23,21 +22,22 @@ import java.util.Map;
 
 import pwr.inteligentbuilding.activity.MainActivity;
 import pwr.inteligentbuilding.model.Device;
+import pwr.inteligentbuilding.model.Devices;
 import pwr.inteligentbuilding.utils.opcUtils.ConnectionThread.ThreadCreateSession;
 import pwr.inteligentbuilding.utils.opcUtils.ConnectionThread.ThreadDiscoveryEndpoints;
 import pwr.inteligentbuilding.utils.opcUtils.ManagerOPC;
 
 public class OpcuaConnection {
     private final ManagerOPC manager;
-    private final Activity activity;
+    private final MainActivity activity;
     private final List<EndpointDescription> endpoints_list;
     private EndpointDescription[] endpoints;
     private String url;
-    private final DevicesUtils deviceModel;
+    private final Devices deviceModel;
     private Map<ImageView, Device> devices;
 
 
-    public OpcuaConnection(Activity activity, File filePath, DevicesUtils deviceModel) {
+    public OpcuaConnection(MainActivity activity, File filePath, Devices deviceModel) {
         this.activity = activity;
         this.deviceModel = deviceModel;
         File certFile = new File(filePath, "OPCCert.der");
@@ -72,45 +72,17 @@ public class OpcuaConnection {
         updateStatus();
     }
 
-
-    private class example extends AsyncTask<Integer, Integer, String> {
-
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected String doInBackground(Integer... integers) {
-            return null;
-        }
-
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-            super.onProgressUpdate(values);
-        }
-    }
-
     private void updateStatus() {
         Thread thread = new Thread() {
             @Override
             public void run() {
                 try {
                     while(true){
+                        sleep(1000);
                         devices = deviceModel.getDevices();
-                        System.out.println(deviceModel);
                         if (!devices.isEmpty()) {
-                            System.out.println("asdasd");
                             devices.values().forEach(Device::updateStatus);
                         }
-                        sleep(1000);
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
