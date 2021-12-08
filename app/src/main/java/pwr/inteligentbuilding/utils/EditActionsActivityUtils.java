@@ -1,8 +1,6 @@
 package pwr.inteligentbuilding.utils;
 
 import android.app.ProgressDialog;
-import android.os.AsyncTask;
-import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -36,18 +34,16 @@ public class EditActionsActivityUtils {
     private DemoAdapter adapter;
     private Map<String, ArrayAdapter<CharSequence>> adapterMap;
     ProgressDialog dialog;
-    private boolean done;
 
-    public EditActionsActivityUtils(EditActionsActivity activity, Spinner deviceType, Spinner deviceName) throws InterruptedException {
+    public EditActionsActivityUtils(EditActionsActivity activity, Spinner deviceType, Spinner deviceName){
         this.activity = activity;
         devices = DevicesUtils.getDevices(this.activity);
         this.deviceType = deviceType;
         this.deviceName = deviceName;
-        done = false;
         updateStatus();
     }
 
-    public void updateStatus() throws InterruptedException {
+    public void updateStatus() {
         dialog = new ProgressDialog(activity);
         dialog.setMessage("Wczytywanie danych");
         dialog.setCancelable(false);

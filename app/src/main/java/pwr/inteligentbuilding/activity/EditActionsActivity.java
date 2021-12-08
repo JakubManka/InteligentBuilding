@@ -42,11 +42,7 @@ public class EditActionsActivity extends AppCompatActivity implements AdapterVie
         Spinner deviceType = findViewById(R.id.deviceType);
         Spinner deviceName = findViewById(R.id.deviceName);
 
-        try {
-            editActionsActivityUtils = new EditActionsActivityUtils(this, deviceType, deviceName);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        editActionsActivityUtils = new EditActionsActivityUtils(this, deviceType, deviceName);
     }
 
     @Override
@@ -54,7 +50,7 @@ public class EditActionsActivity extends AppCompatActivity implements AdapterVie
         editActionsActivityUtils.onItemSelected(adapterView, i);
     }
 
-    public void handleAddAction(View view){
+    public void handleAddAction(View view) {
         editActionsActivityUtils.handleAddAction();
     }
 
