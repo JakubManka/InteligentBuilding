@@ -1,4 +1,4 @@
-package pwr.inteligentbuilding.OpcUtils;
+package pwr.inteligentbuilding.utils.opcUtils;
 
 import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.opcfoundation.ua.application.Application;
@@ -46,12 +46,12 @@ public class ManagerOPC {
 
     static private Client client;
     private static ManagerOPC istance = null;
-    private List<SessionElement> sessions;
+    private final List<SessionElement> sessions;
 
-    private List<NodeId> basicnodes;
+    private final List<NodeId> basicnodes;
     private Stack<List<NodeId>> stack;
 
-    private static String Key = "xftghbxcvjkxhvbjnkdfgvjcfgvsyujgtxyudfgywiagweyruigxcukvnbduihfguieyrshbgfoiwbhfioqhuifpquhdivgianioahwdioqgifopabnpiv3287468976781ryui1gh843858934h5hfg98gr41734105g14fjrs6tjwt78";
+    private static final String Key = "xftghbxcvjkxhvbjnkdfgvjcfgvsyujgtxyudfgywiagweyruigxcukvnbduihfguieyrshbgfoiwbhfioqhuifpquhdivgianioahwdioqgifopabnpiv3287468976781ryui1gh843858934h5hfg98gr41734105g14fjrs6tjwt78";
     private static Application myClientApplication;
     private static KeyPair keys;
 

@@ -2,13 +2,20 @@ package pwr.inteligentbuilding.model;
 
 import org.opcfoundation.ua.builtintypes.Variant;
 
+import java.io.Serializable;
 import java.util.List;
 
-public interface Device {
+public interface Device extends Serializable {
 
-    public void turnOn();
-    public void turnOff();
-    public void updateStatus();
-    public Variant getStatus();
-    public List<String> getActions();
+    void turnOn();
+    void turnOff();
+    void updateStatus();
+    void setActions();
+    Variant getStatus();
+    List<Action> getActions();
+    String getType();
+    String getRoom();
+    String getNodeId();
+    int getTurnedOnImage();
+    int getTurnedOffImage();
 }

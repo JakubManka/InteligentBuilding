@@ -1,4 +1,4 @@
-package pwr.inteligentbuilding.utils;
+package pwr.inteligentbuilding.model;
 
 import static pwr.inteligentbuilding.utils.LightName.OS_GABINET;
 import static pwr.inteligentbuilding.utils.LightName.OS_GARAZ;
@@ -12,35 +12,39 @@ import static pwr.inteligentbuilding.utils.LightName.OS_SALON_3;
 import static pwr.inteligentbuilding.utils.LightName.OS_SCHODY;
 import static pwr.inteligentbuilding.utils.LightName.OS_TV;
 
-import android.app.Activity;
 
-import java.util.ArrayList;
+import android.widget.ImageView;
+
+import java.io.Serializable;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import pwr.inteligentbuilding.R;
-import pwr.inteligentbuilding.model.Device;
-import pwr.inteligentbuilding.model.Light;
+import pwr.inteligentbuilding.activity.MainActivity;
+import pwr.inteligentbuilding.utils.DevicesUtils;
 
-public class DevicesUtils {
+public class Devices implements Serializable {
+    private final Map<ImageView, Device> devices;
 
-    public static List<Device> getDevices(Activity activity) {
-        List<Device> devices = new ArrayList<>();
-        List<String> lightNames = Arrays.asList(activity.getResources().getStringArray(R.array.lights));
-        int namespace = 4;
-        devices.add(new Light(OS_NOCNE_GABINET, namespace, lightNames.get(0)));
-        devices.add(new Light(OS_SCHODY, namespace, lightNames.get(1)));
-        devices.add(new Light(OS_KOTLOWNIA, namespace, lightNames.get(2)));
-        devices.add(new Light(OS_GABINET, namespace, lightNames.get(3)));
-        devices.add(new Light(OS_GARAZ, namespace, lightNames.get(4)));
-        devices.add(new Light(OS_LAZIENKA_DOL_GORNE, namespace, lightNames.get(5)));
-        devices.add(new Light(OS_KUCHNIA, namespace, lightNames.get(6)));
-        devices.add(new Light(OS_SALON_1, namespace, lightNames.get(7)));
-        devices.add(new Light(OS_SALON_2, namespace, lightNames.get(8)));
-        devices.add(new Light(OS_SALON_3, namespace, lightNames.get(9)));
-        devices.add(new Light(OS_TV, namespace, lightNames.get(10)));
+    public Devices() {
+        devices = new HashMap<>();
+    }
 
-
+    public void setupDevices(MainActivity activity) {
+        List<Device> deviceList = DevicesUtils.getDevices(activity);
+        devices.put(activity.findViewById(R.id.light_1),deviceList.get(0));
+        devices.put(activity.findViewById(R.id.light_2),deviceList.get(1));
+        devices.put(activity.findViewById(R.id.light_3),deviceList.get(2));
+        devices.put(activity.findViewById(R.id.light_4),deviceList.get(3));
+        devices.put(activity.findViewById(R.id.light_5),deviceList.get(4));
+        devices.put(activity.findViewById(R.id.light_6),deviceList.get(5));
+        devices.put(activity.findViewById(R.id.light_7),deviceList.get(6));
+        devices.put(activity.findViewById(R.id.light_8),deviceList.get(7));
+        devices.put(activity.findViewById(R.id.light_9),deviceList.get(8));
+        devices.put(activity.findViewById(R.id.light_10),deviceList.get(9));
+        devices.put(activity.findViewById(R.id.light_11),deviceList.get(10));
 
 //        devices.put(activity.findViewById(R.id.socket_1), new Socket("2", namespace, ));
 //        devices.put(activity.findViewById(R.id.socket_2), new Socket("2", namespace, ));
@@ -62,6 +66,10 @@ public class DevicesUtils {
 //        devices.put(activity.findViewById(R.id.sunblind_7), new Sunblind("2", namespace, ));
 //        devices.put(activity.findViewById(R.id.sunblind_8), new Sunblind("2", namespace, ));
 //        devices.put(activity.findViewById(R.id.gate), new Gate("2", namespace, ));
+    }
+
+
+    public Map<ImageView, Device> getDevices() {
         return devices;
     }
 }

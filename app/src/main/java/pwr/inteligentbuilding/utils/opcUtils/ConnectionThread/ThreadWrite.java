@@ -1,4 +1,4 @@
-package pwr.inteligentbuilding.OpcUtils.ConnectionThread;
+package pwr.inteligentbuilding.utils.opcUtils.ConnectionThread;
 
 import android.os.Handler;
 import android.os.Message;
@@ -17,13 +17,13 @@ import org.opcfoundation.ua.core.WriteValue;
 
 public class ThreadWrite extends Thread {
     private Handler handler;
-    private int namespace;
+    private final int namespace;
     private int nodeId;
-    private String nodeId_String;
-    private UnsignedInteger attribute;
-    private SessionChannel session;
+    private final String nodeId_String;
+    private final UnsignedInteger attribute;
+    private final SessionChannel session;
     private boolean sent =false;
-    private Variant valueToWrite;
+    private final Variant valueToWrite;
 
     public ThreadWrite(SessionChannel session, int namespace, int nodeId, UnsignedInteger attribute, Variant valueToWrite){
         this.valueToWrite=valueToWrite;

@@ -1,4 +1,4 @@
-package pwr.inteligentbuilding.OpcUtils.ConnectionThread;
+package pwr.inteligentbuilding.utils.opcUtils.ConnectionThread;
 
 import android.os.Handler;
 import android.os.Message;
@@ -10,8 +10,8 @@ import org.opcfoundation.ua.core.EndpointDescription;
 public class ThreadDiscoveryEndpoints extends Thread {
 
     private Handler handler;
-    private String url;
-    private Client client;
+    private final String url;
+    private final Client client;
     private boolean sent =false;
     public ThreadDiscoveryEndpoints(Client client, String url){
         this.url=url;

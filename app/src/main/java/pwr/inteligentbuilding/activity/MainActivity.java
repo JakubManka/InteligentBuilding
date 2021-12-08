@@ -2,66 +2,114 @@ package pwr.inteligentbuilding.activity;
 
 import static android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN;
 
-import android.app.Activity;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import pwr.inteligentbuilding.R;
+import pwr.inteligentbuilding.model.Devices;
+import pwr.inteligentbuilding.utils.Drawer;
+import pwr.inteligentbuilding.utils.MainActivityUtils;
+import pwr.inteligentbuilding.utils.OpcuaConnection;
 
 public class MainActivity extends AppCompatActivity {
-    DrawerLayout drawerLayout;
+    private DrawerLayout drawerLayout;
+    private LinearLayout firstFloor;
+    private LinearLayout groundFloor;
+    private RelativeLayout gate;
+    private ImageView chosenDevice;
+    private Devices devices;
+    private MainActivityUtils mainActivityUtils;
+    private boolean isActivityVisible;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_menu);
+        setContentView(R.layout.activity_main);
         getWindow().setFlags(FLAG_FULLSCREEN, FLAG_FULLSCREEN);
 
+        devices = new Devices();
+        OpcuaConnection opcua = new OpcuaConnection(this, getFilesDir(), devices);
+        opcua.connect();
+
+        mainActivityUtils = new MainActivityUtils(this, devices);
+        firstFloor = findViewById(R.id.first_floor);
+        groundFloor = findViewById(R.id.ground_floor);
         drawerLayout = findViewById(R.id.drawerLayout);
-    }
-    
-    public void ClickMenu(View view){
-        openDrawer(drawerLayout);
+        gate = findViewById(R.id.gate);
+
+        devices.setupDevices(this);
+        mainActivityUtils.updateView();
+        isActivityVisible = true;
     }
 
-    public static void openDrawer(DrawerLayout drawerLayout) {
-        drawerLayout.openDrawer(GravityCompat.START);
+    public void handleImageClick(View view) {
+        chosenDevice = (ImageView) view;
+        mainActivityUtils.createCustomDialog(R.layout.popup);
     }
 
-    public void ClickFloor(View view){
-        redirectActivity(this, FloorActivity.class);
+    public void handleFirstFloorClick(View view) {
+        this.gate.setVisibility(View.GONE);
+        groundFloor.setVisibility(View.GONE);
+        firstFloor.setVisibility(View.VISIBLE);
     }
 
-    public void ClickRoom(View view){
-        redirectActivity(this, RoomActivity.class);
+    public void handleGroundFloorClick(View view) {
+        this.gate.setVisibility(View.VISIBLE);
+        firstFloor.setVisibility(View.GONE);
+        groundFloor.setVisibility(View.VISIBLE);
     }
 
-    public void ClickLight(View view){
-        redirectActivity(this, LightActivity.class);
+    public void handleTurnOn(View v) {
+        devices.getDevices().get(chosenDevice).turnOn();
     }
 
-    public void ClickOPCUA(View view){
-        redirectActivity(this, OpcuaActivity.class);
+    public void handleTurnOff(View v) {
+        devices.getDevices().get(chosenDevice).turnOff();
     }
 
-    public static void redirectActivity(Activity activity, Class aClass){
-        Intent intent = new Intent(activity, aClass);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        activity.startActivity(intent);
+    public void handleEditAction(View v) {
+        Intent intent = new Intent(this, EditActionsActivity.class);
+        intent.putExtra("type", devices.getDevices().get(chosenDevice).getType());
+        intent.putExtra("room", devices.getDevices().get(chosenDevice).getRoom());
+        this.startActivity(intent);
     }
 
-    protected void onPause(){
-        super.onPause();
-        closeDrawer(drawerLayout);
+    public void ClickMenu(View view) {
+        Drawer.openDrawer(drawerLayout);
     }
 
-    private static void closeDrawer(DrawerLayout drawerLayout) {
-        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
-            drawerLayout.closeDrawer(GravityCompat.START);
-        }
+    public void ClickFloor(View view) {
+        Drawer.redirectActivity(this, MainActivity.class);
+    }
+
+    public void ClickActions(View view) {
+        Drawer.redirectActivity(this, EditActionsActivity.class);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        isActivityVisible = true;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        isActivityVisible = false;
+    }
+
+    public ImageView getChosenDevice() {
+        return chosenDevice;
+    }
+
+    public boolean isActivityVisible() {
+        return isActivityVisible;
     }
 }

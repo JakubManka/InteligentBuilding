@@ -14,20 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.InteligentBuilding">
         <activity
-            android:name=".activity.FloorActivity"
-            android:exported="true" />
+            android:name=".activity.EditActionsActivity"
+            android:exported="false" />
         <activity
-            android:name=".activity.SettingsActivity"
-            android:exported="true" />
-        <activity android:name=".activity.MainActivity" />
-        <activity
-            android:name=".activity.RoomActivity"
-            android:exported="true" />
-        <activity
-            android:name=".activity.LightActivity"
-            android:exported="true" />
-        <activity
-            android:name=".activity.OpcuaActivity"
+            android:name=".activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

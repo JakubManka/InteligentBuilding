@@ -1,4 +1,4 @@
-package pwr.inteligentbuilding.OpcUtils.ConnectionThread;
+package pwr.inteligentbuilding.utils.opcUtils.ConnectionThread;
 
 import android.os.Handler;
 import android.os.Message;
@@ -14,10 +14,10 @@ import org.opcfoundation.ua.core.TimestampsToReturn;
 public class ThreadRead extends Thread {
 
     private Handler handler;
-    private int namespace;
-    private String nodeId_String;
-    private UnsignedInteger attribute;
-    private SessionChannel session;
+    private final int namespace;
+    private final String nodeId_String;
+    private final UnsignedInteger attribute;
+    private final SessionChannel session;
     private boolean sent = false;
 
     public ThreadRead(SessionChannel session, int namespace, String nodeId, UnsignedInteger attribute) {

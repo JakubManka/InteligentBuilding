@@ -1,4 +1,4 @@
-package pwr.inteligentbuilding.OpcUtils;
+package pwr.inteligentbuilding.utils.opcUtils;
 
 import org.opcfoundation.ua.core.CreateMonitoredItemsRequest;
 import org.opcfoundation.ua.core.CreateMonitoredItemsResponse;
@@ -7,9 +7,9 @@ import org.opcfoundation.ua.core.MonitoredItemNotification;
 import java.util.LinkedList;
 
 public class MonitoredItemElement {
-    private CreateMonitoredItemsResponse monitoreditem;
-    private CreateMonitoredItemsRequest monitoreditem_request;
-    private LinkedList<MonitoredItemNotification> readings;
+    private final CreateMonitoredItemsResponse monitoreditem;
+    private final CreateMonitoredItemsRequest monitoreditem_request;
+    private final LinkedList<MonitoredItemNotification> readings;
     public static final int buffersize = 5;
 
     public MonitoredItemElement(CreateMonitoredItemsResponse monitoreditem,

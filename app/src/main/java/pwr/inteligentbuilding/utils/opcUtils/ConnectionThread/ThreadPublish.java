@@ -1,4 +1,4 @@
-package pwr.inteligentbuilding.OpcUtils.ConnectionThread;
+package pwr.inteligentbuilding.utils.opcUtils.ConnectionThread;
 
 
 import org.opcfoundation.ua.builtintypes.ExtensionObject;
@@ -9,13 +9,13 @@ import org.opcfoundation.ua.core.NotificationMessage;
 import org.opcfoundation.ua.core.PublishResponse;
 import org.opcfoundation.ua.core.SubscriptionAcknowledgement;
 
-import pwr.inteligentbuilding.OpcUtils.ManagerOPC;
-import pwr.inteligentbuilding.OpcUtils.SessionElement;
+import pwr.inteligentbuilding.utils.opcUtils.ManagerOPC;
+import pwr.inteligentbuilding.utils.opcUtils.SessionElement;
 
 
 public class ThreadPublish extends Thread {
 
-    private SessionElement sessionElement;
+    private final SessionElement sessionElement;
     public ThreadPublish(SessionElement sessionElement) {
         this.sessionElement = sessionElement;
     }

@@ -18,31 +18,28 @@ import org.opcfoundation.ua.core.WriteResponse;
 import java.util.ArrayList;
 import java.util.List;
 
-import pwr.inteligentbuilding.OpcUtils.ConnectionThread.ThreadRead;
-import pwr.inteligentbuilding.OpcUtils.ConnectionThread.ThreadWrite;
-import pwr.inteligentbuilding.OpcUtils.ManagerOPC;
-import pwr.inteligentbuilding.OpcUtils.SessionElement;
+import pwr.inteligentbuilding.utils.ActionName;
+import pwr.inteligentbuilding.utils.opcUtils.ConnectionThread.ThreadWrite;
+import pwr.inteligentbuilding.utils.opcUtils.ManagerOPC;
+import pwr.inteligentbuilding.utils.opcUtils.SessionElement;
+import pwr.inteligentbuilding.R;
 
 public class Light implements Device {
     private final String nodeId;
     private final int namespace;
     private final ManagerOPC manager;
     private Variant status;
-    private List<String> actions;
+    private final List<Action> actions;
+    private final String room;
 
-    public Light(String nodeId, int namespace) {
+    public Light(String nodeId, int namespace, String room) {
         this.nodeId = nodeId;
         this.namespace = namespace;
         this.manager = ManagerOPC.getIstance();
+        this.room = room;
         status = new Variant("undefined");
         actions = new ArrayList<>();
-        actions.add("akcja 1");
-        actions.add("akcja 2");
-        actions.add("akcja 3");
-        actions.add("akcja 4");
-        actions.add("akcja 5");
-        actions.add("akcja 6");
-        actions.add("akcja 7");
+        setActions();
     }
 
     @Override
@@ -58,16 +55,34 @@ public class Light implements Device {
     }
 
     @Override
+    public void setActions() {
+        actions.add(new Action(nodeId + ActionName.ACTIONS_0));
+        actions.add(new Action(nodeId + ActionName.ACTIONS_1));
+        actions.add(new Action(nodeId + ActionName.ACTIONS_2));
+        actions.add(new Action(nodeId + ActionName.ACTIONS_3));
+        actions.add(new Action(nodeId + ActionName.ACTIONS_4));
+        actions.add(new Action(nodeId + ActionName.ACTIONS_5));
+        actions.add(new Action(nodeId + ActionName.ACTIONS_6));
+        actions.add(new Action(nodeId + ActionName.ACTIONS_7));
+        actions.add(new Action(nodeId + ActionName.ACTIONS_8));
+        actions.add(new Action(nodeId + ActionName.ACTIONS_9));
+    }
+
+    @Override
     public void updateStatus() {
         SessionElement sessionElement = manager.getSessions().get(0);
         try {
             ReadResponse res = sessionElement.getSession().Read(null, 0d, TimestampsToReturn.Both,
                     new ReadValueId(new NodeId(namespace, nodeId + IS_ON), Attributes.Value, null, null));
             status = res.getResults()[0].getValue();
-
+            readActions(sessionElement);
         } catch (ServiceResultException e) {
             e.printStackTrace();
         }
+    }
+
+    private void readActions(SessionElement sessionElement) {
+        actions.forEach(action -> action.readActions(sessionElement));
     }
 
     private void write(Variant value, String node) {
@@ -93,7 +108,32 @@ public class Light implements Device {
     }
 
     @Override
-    public List<String> getActions() {
+    public List<Action> getActions() {
         return actions;
+    }
+
+    @Override
+    public String getType() {
+        return "Światła";
+    }
+
+    @Override
+    public String getRoom() {
+        return room;
+    }
+
+    @Override
+    public String getNodeId() {
+        return room + " ----- " +  nodeId;
+    }
+
+    @Override
+    public int getTurnedOnImage() {
+        return R.drawable.ic_light_on;
+    }
+
+    @Override
+    public int getTurnedOffImage() {
+        return R.drawable.ic_light_off;
     }
 }
