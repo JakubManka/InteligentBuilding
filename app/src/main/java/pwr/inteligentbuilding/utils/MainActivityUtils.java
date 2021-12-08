@@ -8,11 +8,14 @@ import androidx.appcompat.app.AlertDialog;
 
 import org.opcfoundation.ua.builtintypes.Variant;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import pwr.inteligentbuilding.ActionBaseAdapter;
 import pwr.inteligentbuilding.R;
 import pwr.inteligentbuilding.activity.MainActivity;
+import pwr.inteligentbuilding.model.Action;
 import pwr.inteligentbuilding.model.Device;
 import pwr.inteligentbuilding.model.Devices;
 
@@ -22,6 +25,7 @@ public class MainActivityUtils {
     private final Devices devices;
     private ImageView deviceStatus;
     private AlertDialog dialog;
+    ListView actionsView;
 
     public MainActivityUtils(MainActivity activity, Devices devices) {
         this.activity = activity;
@@ -35,12 +39,7 @@ public class MainActivityUtils {
                 while (true) {
                     try {
                         sleep(1000);
-                        activity.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                updateImages();
-                            }
-                        });
+                        activity.runOnUiThread(() -> updateImages());
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -59,19 +58,26 @@ public class MainActivityUtils {
         dialog.show();
 
         setDeviceStatusImage(activity.getChosenDevice().getTag().toString());
-        ListView actionsView = dialog.findViewById(R.id.actions);
-        ActionBaseAdapter adapter = new ActionBaseAdapter(activity.getApplicationContext(), devices.getDevices().get(activity.getChosenDevice()).getActions());
+        updateAdapter();
+    }
 
-        actionsView.setAdapter(adapter);
-        actionsView.setContextClickable(false);
+    private void updateAdapter() {
+        if (devices.getDevices().get(activity.getChosenDevice()) != null) {
+            List<Action> actions = devices.getDevices().get(activity.getChosenDevice())
+                    .getActions().stream().filter(a -> !a.getTriggerFunction().equals("")).collect(Collectors.toList());
+            ActionBaseAdapter adapter = new ActionBaseAdapter(activity.getApplicationContext(), actions);
+            actionsView = dialog.findViewById(R.id.actions);
+            Objects.requireNonNull(actionsView).setAdapter(adapter);
+        }
     }
 
     private void updateImages() {
-        if(activity.isActivityVisible()){
+        if (activity.isActivityVisible()) {
             devices.getDevices().forEach((key, value) -> {
                 if (value.getStatus().toString().equals("true")) {
                     if (key.equals(activity.getChosenDevice())) {
                         setImage(value.getTurnedOnImage());
+                        updateAdapter();
                     }
                     key.setImageResource(value.getTurnedOnImage());
                 } else if (value.getStatus().toString().equals("false")) {
@@ -79,6 +85,7 @@ public class MainActivityUtils {
                         setImage(value.getTurnedOffImage());
                     }
                     key.setImageResource(value.getTurnedOffImage());
+                    updateAdapter();
                 }
             });
         }

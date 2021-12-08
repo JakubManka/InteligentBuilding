@@ -13,7 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import pwr.inteligentbuilding.R;
-import pwr.inteligentbuilding.model.Device;
 import pwr.inteligentbuilding.model.Devices;
 import pwr.inteligentbuilding.utils.Drawer;
 import pwr.inteligentbuilding.utils.MainActivityUtils;
@@ -44,10 +43,10 @@ public class MainActivity extends AppCompatActivity {
         groundFloor = findViewById(R.id.ground_floor);
         drawerLayout = findViewById(R.id.drawerLayout);
         gate = findViewById(R.id.gate);
-        isActivityVisible = true;
 
         devices.setupDevices(this);
         mainActivityUtils.updateView();
+        isActivityVisible = true;
     }
 
     public void handleImageClick(View view) {
@@ -76,7 +75,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void handleEditAction(View v) {
-        Drawer.redirectActivity(this, EditActionsActivity.class);
+        Intent intent = new Intent(this, EditActionsActivity.class);
+        intent.putExtra("type", devices.getDevices().get(chosenDevice).getType());
+        intent.putExtra("room", devices.getDevices().get(chosenDevice).getRoom());
+        this.startActivity(intent);
     }
 
     public void ClickMenu(View view) {

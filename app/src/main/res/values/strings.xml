@@ -67,10 +67,10 @@
     </string-array>
 
     <string-array name="lights">
-        <item>Gabinet</item>
+        <item>Gabinet nocne</item>
         <item>Schody</item>
         <item>Kotłownia</item>
-        <item>Gabinet nocne</item>
+        <item>Gabinet</item>
         <item>Garaż</item>
         <item>Łazienka parter</item>
         <item>Kuchnia</item>
@@ -108,8 +108,8 @@
 
     <string-array name="actionFunction">
         <item></item>
-        <item>Turn On</item>
-        <item>Turn Off</item>
+        <item>TurnOn</item>
+        <item>TurnOff</item>
     </string-array>
 
     <string-array name="actionParam">

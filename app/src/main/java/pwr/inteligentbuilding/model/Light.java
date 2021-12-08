@@ -17,7 +17,6 @@ import org.opcfoundation.ua.core.WriteResponse;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import pwr.inteligentbuilding.utils.ActionName;
 import pwr.inteligentbuilding.utils.opcUtils.ConnectionThread.ThreadWrite;
@@ -32,7 +31,6 @@ public class Light implements Device {
     private Variant status;
     private final List<Action> actions;
     private final String room;
-    private boolean actionsDone;
 
     public Light(String nodeId, int namespace, String room) {
         this.nodeId = nodeId;
@@ -41,7 +39,6 @@ public class Light implements Device {
         this.room = room;
         status = new Variant("undefined");
         actions = new ArrayList<>();
-        actionsDone = false;
         setActions();
     }
 
@@ -59,17 +56,16 @@ public class Light implements Device {
 
     @Override
     public void setActions() {
-        actions.add(new Action("OnTime", "11:33", "Turn On", "", nodeId + ActionName.ACTIONS_0, 4));
-        actions.add(new Action("OnTime", "20:00", "Turn Off", "Param 1", nodeId + ActionName.ACTIONS_1, 4));
-        actions.add(new Action("OnSunRise", "pon", "Turn On", "", nodeId + ActionName.ACTIONS_2, 4));
-        actions.add(new Action("OnTime", "11:33", "Turn On", "", nodeId + ActionName.ACTIONS_3, 4));
-        actions.add(new Action("OnTime", "20:00", "Turn Off", "", nodeId + ActionName.ACTIONS_4, 4));
-        actions.add(new Action("OnSunRise", "pon", "Turn On", "", nodeId + ActionName.ACTIONS_5, 4));
-        actions.add(new Action("OnTime", "11:33", "Turn On", "", nodeId + ActionName.ACTIONS_6, 4));
-        actions.add(new Action("OnTime", "20:00", "Turn Off", "", nodeId + ActionName.ACTIONS_7, 4));
-        actions.add(new Action("OnSunRise", "pon", "Turn On", "", nodeId + ActionName.ACTIONS_8, 4));
-        actions.add(new Action("", "pon", "Turn On", "", nodeId + ActionName.ACTIONS_9, 4));
-        actionsDone = true;
+        actions.add(new Action(nodeId + ActionName.ACTIONS_0));
+        actions.add(new Action(nodeId + ActionName.ACTIONS_1));
+        actions.add(new Action(nodeId + ActionName.ACTIONS_2));
+        actions.add(new Action(nodeId + ActionName.ACTIONS_3));
+        actions.add(new Action(nodeId + ActionName.ACTIONS_4));
+        actions.add(new Action(nodeId + ActionName.ACTIONS_5));
+        actions.add(new Action(nodeId + ActionName.ACTIONS_6));
+        actions.add(new Action(nodeId + ActionName.ACTIONS_7));
+        actions.add(new Action(nodeId + ActionName.ACTIONS_8));
+        actions.add(new Action(nodeId + ActionName.ACTIONS_9));
     }
 
     @Override
@@ -79,17 +75,14 @@ public class Light implements Device {
             ReadResponse res = sessionElement.getSession().Read(null, 0d, TimestampsToReturn.Both,
                     new ReadValueId(new NodeId(namespace, nodeId + IS_ON), Attributes.Value, null, null));
             status = res.getResults()[0].getValue();
-            updateActions(sessionElement);
+            readActions(sessionElement);
         } catch (ServiceResultException e) {
             e.printStackTrace();
         }
     }
 
-    private void updateActions(SessionElement sessionElement) {
-        actions.forEach(action -> action.updateActions(sessionElement));
-//        if(!actionsDone){
-//            setActions();
-//        }
+    private void readActions(SessionElement sessionElement) {
+        actions.forEach(action -> action.readActions(sessionElement));
     }
 
     private void write(Variant value, String node) {
@@ -127,6 +120,11 @@ public class Light implements Device {
     @Override
     public String getRoom() {
         return room;
+    }
+
+    @Override
+    public String getNodeId() {
+        return room + " ----- " +  nodeId;
     }
 
     @Override

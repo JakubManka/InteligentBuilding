@@ -15,6 +15,7 @@ public interface Device extends Serializable {
     List<Action> getActions();
     String getType();
     String getRoom();
+    String getNodeId();
     int getTurnedOnImage();
     int getTurnedOffImage();
 }

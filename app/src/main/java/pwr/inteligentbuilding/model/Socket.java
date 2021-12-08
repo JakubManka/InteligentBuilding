@@ -65,6 +65,11 @@ public class Socket implements Device {
     }
 
     @Override
+    public String getNodeId() {
+        return null;
+    }
+
+    @Override
     public int getTurnedOnImage() {
         return 0;
     }
