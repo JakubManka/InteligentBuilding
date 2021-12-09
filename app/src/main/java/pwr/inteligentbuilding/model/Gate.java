@@ -40,6 +40,11 @@ public class Gate implements Device {
     }
 
     @Override
+    public void updateActions() {
+
+    }
+
+    @Override
     public void setActions() {
 
     }

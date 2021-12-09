@@ -27,6 +27,7 @@ import pwr.inteligentbuilding.utils.DevicesUtils;
 
 public class Devices implements Serializable {
     private final Map<ImageView, Device> devices;
+    private Device chosenDevice;
 
     public Devices() {
         devices = new HashMap<>();
@@ -68,6 +69,13 @@ public class Devices implements Serializable {
 //        devices.put(activity.findViewById(R.id.gate), new Gate("2", namespace, ));
     }
 
+    public Device getChosenDevice() {
+        return chosenDevice;
+    }
+
+    public void setChosenDevice(ImageView chosenDevice) {
+        this.chosenDevice = devices.get(chosenDevice);
+    }
 
     public Map<ImageView, Device> getDevices() {
         return devices;

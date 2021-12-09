@@ -30,7 +30,6 @@ import pwr.inteligentbuilding.utils.opcUtils.ManagerOPC;
 public class OpcuaConnection {
     private final ManagerOPC manager;
     private final MainActivity activity;
-    private final List<EndpointDescription> endpoints_list;
     private EndpointDescription[] endpoints;
     private String url;
     private final Devices deviceModel;
@@ -43,7 +42,6 @@ public class OpcuaConnection {
         File certFile = new File(filePath, "OPCCert.der");
         File privKeyFile = new File(filePath, "OPCCert.pem");
         manager = ManagerOPC.CreateManagerOPC(certFile, privKeyFile);
-        endpoints_list = new ArrayList<>();
         devices = new HashMap<>();
     }
 
@@ -56,8 +54,6 @@ public class OpcuaConnection {
             @Override
             public void handleMessage(Message msg) {
                 endpoints = selectByProtocol(sortBySecurityLevel((EndpointDescription[]) msg.obj), "opc.tcp");
-                endpoints_list.addAll(Arrays.asList(endpoints));
-
                 createSession();
             }
         };
@@ -77,11 +73,17 @@ public class OpcuaConnection {
             @Override
             public void run() {
                 try {
-                    while(true){
-                        sleep(1000);
-                        devices = deviceModel.getDevices();
-                        if (!devices.isEmpty()) {
-                            devices.values().forEach(Device::updateStatus);
+                    while (true) {
+                        if (activity.isActivityVisible()) {
+                            sleep(1000);
+                            devices = deviceModel.getDevices();
+                            if (!devices.isEmpty()) {
+                                devices.values().forEach(Device::updateStatus);
+                                Device chosenDevice = deviceModel.getChosenDevice();
+                                if (chosenDevice != null) {
+                                    chosenDevice.updateActions();
+                                }
+                            }
                         }
                     }
                 } catch (InterruptedException e) {

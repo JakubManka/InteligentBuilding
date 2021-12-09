@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import pwr.inteligentbuilding.ActionBaseAdapter;
+import pwr.inteligentbuilding.adapter.ActionBaseAdapter;
 import pwr.inteligentbuilding.R;
 import pwr.inteligentbuilding.activity.MainActivity;
 import pwr.inteligentbuilding.model.Action;
@@ -39,7 +39,9 @@ public class MainActivityUtils {
                 while (true) {
                     try {
                         sleep(1000);
-                        activity.runOnUiThread(() -> updateImages());
+                        if(activity.isActivityVisible()){
+                            activity.runOnUiThread(() -> updateImages());
+                        }
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -58,6 +60,7 @@ public class MainActivityUtils {
         dialog.show();
 
         setDeviceStatusImage(activity.getChosenDevice().getTag().toString());
+        devices.setChosenDevice(activity.getChosenDevice());
         updateAdapter();
     }
 

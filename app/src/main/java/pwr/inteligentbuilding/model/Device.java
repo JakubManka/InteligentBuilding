@@ -10,6 +10,7 @@ public interface Device extends Serializable {
     void turnOn();
     void turnOff();
     void updateStatus();
+    void updateActions();
     void setActions();
     Variant getStatus();
     List<Action> getActions();

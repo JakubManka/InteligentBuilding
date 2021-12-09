@@ -75,13 +75,14 @@ public class Light implements Device {
             ReadResponse res = sessionElement.getSession().Read(null, 0d, TimestampsToReturn.Both,
                     new ReadValueId(new NodeId(namespace, nodeId + IS_ON), Attributes.Value, null, null));
             status = res.getResults()[0].getValue();
-            readActions(sessionElement);
         } catch (ServiceResultException e) {
             e.printStackTrace();
         }
     }
 
-    private void readActions(SessionElement sessionElement) {
+    @Override
+    public void updateActions() {
+        SessionElement sessionElement = manager.getSessions().get(0);
         actions.forEach(action -> action.readActions(sessionElement));
     }
 
