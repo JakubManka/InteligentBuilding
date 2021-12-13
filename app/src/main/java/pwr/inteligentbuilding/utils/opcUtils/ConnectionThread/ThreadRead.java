@@ -19,6 +19,8 @@ public class ThreadRead extends Thread {
     private final UnsignedInteger attribute;
     private final SessionChannel session;
     private boolean sent = false;
+    NodeId[] nodes = new NodeId[4];
+    ReadValueId[] values = new ReadValueId[4];
 
     public ThreadRead(SessionChannel session, int namespace, String nodeId, UnsignedInteger attribute) {
         this.namespace = namespace;
@@ -41,6 +43,15 @@ public class ThreadRead extends Thread {
 
     @Override
     public void run() {
+        nodes[0] = new NodeId(namespace, nodeId_String);
+        nodes[1] = new NodeId(namespace, nodeId_String);
+        nodes[2] = new NodeId(namespace, nodeId_String);
+        nodes[3] = new NodeId(namespace, nodeId_String);
+        values[0] = new ReadValueId(nodes[0], attribute, null, null);
+        values[1] = new ReadValueId(nodes[1], attribute, null, null);
+        values[2] = new ReadValueId(nodes[2], attribute, null, null);
+        values[3] = new ReadValueId(nodes[3], attribute, null, null);
+
         super.run();
         try {
             Thread t = new Thread(new Runnable() {
@@ -50,7 +61,8 @@ public class ThreadRead extends Thread {
                         ReadResponse res;
                         res = session.Read(null, 0d, TimestampsToReturn.Both,
                                 new ReadValueId(new NodeId(namespace, nodeId_String), attribute, null, null));
-
+                        res = session.Read(null, 0d, TimestampsToReturn.Both,
+                                values);
                         send(handler.obtainMessage(0, res));
                     } catch (ServiceResultException e) {
                         send(handler.obtainMessage(-1, e.getStatusCode()));

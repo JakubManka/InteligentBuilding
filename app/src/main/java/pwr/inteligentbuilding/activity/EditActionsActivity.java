@@ -4,6 +4,7 @@ import static android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Application;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,7 +24,6 @@ public class EditActionsActivity extends AppCompatActivity implements AdapterVie
         getWindow().setFlags(FLAG_FULLSCREEN, FLAG_FULLSCREEN);
         Spinner deviceType = findViewById(R.id.deviceType);
         Spinner deviceName = findViewById(R.id.deviceName);
-
         editActionsActivityUtils = new EditActionsActivityUtils(this, deviceType, deviceName);
     }
 
