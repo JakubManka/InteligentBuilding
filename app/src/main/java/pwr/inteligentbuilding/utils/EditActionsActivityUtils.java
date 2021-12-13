@@ -1,6 +1,5 @@
 package pwr.inteligentbuilding.utils;
 
-import android.app.ProgressDialog;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -16,7 +15,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import pwr.inteligentbuilding.DemoAdapter;
+import pwr.inteligentbuilding.adapter.ActionsAdapter;
 import pwr.inteligentbuilding.R;
 import pwr.inteligentbuilding.activity.EditActionsActivity;
 import pwr.inteligentbuilding.model.Action;
@@ -31,11 +30,10 @@ public class EditActionsActivityUtils {
     private final Spinner deviceName;
     private List<Action> allActions;
     private List<Action> adapterActions;
-    private DemoAdapter adapter;
+    private ActionsAdapter adapter;
     private Map<String, ArrayAdapter<CharSequence>> adapterMap;
-    ProgressDialog dialog;
 
-    public EditActionsActivityUtils(EditActionsActivity activity, Spinner deviceType, Spinner deviceName){
+    public EditActionsActivityUtils(EditActionsActivity activity, Spinner deviceType, Spinner deviceName) {
         this.activity = activity;
         devices = DevicesUtils.getDevices(this.activity);
         this.deviceType = deviceType;
@@ -44,19 +42,26 @@ public class EditActionsActivityUtils {
     }
 
     public void updateStatus() {
-        dialog = new ProgressDialog(activity);
-        dialog.setMessage("Wczytywanie danych");
-        dialog.setCancelable(false);
-        dialog.setInverseBackgroundForced(false);
-        dialog.show();
-        Thread thread = new Thread() {
+        Optional<Device> device = devices.stream().filter(d ->
+                d.getRoom().equals((String) activity.getIntent().getExtras().get("room"))).findFirst();
+        Thread readOneAction = new Thread() {
             @Override
             public void run() {
-                devices.forEach(Device::updateStatus);
-                activity.runOnUiThread(() -> updateView());
+                if(device.isPresent()){
+                    device.get().updateActions();
+                    activity.runOnUiThread(() -> updateView());
+                }
             }
         };
-        thread.start();
+        readOneAction.start();
+
+        Thread readActions = new Thread() {
+            @Override
+            public void run() {
+                devices.forEach(Device::updateActions);
+            }
+        };
+        readActions.start();
     }
 
     public void handleAddAction() {
@@ -81,7 +86,7 @@ public class EditActionsActivityUtils {
         if (device.isPresent()) {
             allActions = device.get().getActions();
             adapterActions = device.get().getActions().stream().filter(a -> !a.getTriggerFunction().equals("")).collect(Collectors.toList());
-            adapter = new DemoAdapter(adapterActions);
+            adapter = new ActionsAdapter(adapterActions);
             RecyclerView recyclerView = activity.findViewById(R.id.actionsList);
             recyclerView.setLayoutManager(new LinearLayoutManager(activity));
             recyclerView.setAdapter(adapter);
@@ -101,7 +106,6 @@ public class EditActionsActivityUtils {
     }
 
     private void updateView() {
-        dialog.hide();
         ArrayAdapter<CharSequence> typeAdapter = ArrayAdapter.createFromResource(activity, R.array.deviceType, android.R.layout.simple_spinner_item);
         typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 

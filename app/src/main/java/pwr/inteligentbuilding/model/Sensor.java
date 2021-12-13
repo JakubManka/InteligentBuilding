@@ -40,6 +40,11 @@ public class Sensor implements Device {
     }
 
     @Override
+    public void updateActions() {
+
+    }
+
+    @Override
     public void setActions() {
 
     }

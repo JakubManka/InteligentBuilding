@@ -101,15 +101,15 @@
 
     <string-array name="triggerFunctions">
         <item></item>
-        <item>OnTime</item>
-        <item>OnSunRise</item>
-        <item>OnSunSet</item>
+        <item>onTime</item>
+        <item>onSunRise</item>
+        <item>onSunSet</item>
     </string-array>
 
     <string-array name="actionFunction">
         <item></item>
-        <item>TurnOn</item>
-        <item>TurnOff</item>
+        <item>turnOn</item>
+        <item>turnOff</item>
     </string-array>
 
     <string-array name="actionParam">

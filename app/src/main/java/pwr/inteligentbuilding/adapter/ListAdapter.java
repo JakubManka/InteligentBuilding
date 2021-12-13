@@ -1,4 +1,4 @@
-package pwr.inteligentbuilding;
+package pwr.inteligentbuilding.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
+import pwr.inteligentbuilding.R;
 import pwr.inteligentbuilding.model.Action;
 
 public class ListAdapter extends ArrayAdapter<Action> {

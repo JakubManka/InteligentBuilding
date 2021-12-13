@@ -1,4 +1,4 @@
-package pwr.inteligentbuilding;
+package pwr.inteligentbuilding.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import pwr.inteligentbuilding.R;
 import pwr.inteligentbuilding.model.Action;
 
 public class ActionBaseAdapter extends BaseAdapter {
