@@ -25,7 +25,7 @@ public class Action implements Serializable {
     private String triggerFunctionParam;
     private String actionFunction;
     private String actionFunctionParam;
-    private final String nodeId;
+    private String nodeId;
     private final int namespace;
 
     public Action(String triggerFunction, String triggerFunctionParam, String actionFunction, String actionFunctionParam, String nodeId, int namespace) {
@@ -119,6 +119,14 @@ public class Action implements Serializable {
 
     public void setActionFunctionParam(String actionFunctionParam) {
         this.actionFunctionParam = actionFunctionParam;
+    }
+
+    public void setNodeId(String nodeId) {
+        this.nodeId = nodeId;
+    }
+
+    public String getNodeId() {
+        return nodeId;
     }
 
     @Override

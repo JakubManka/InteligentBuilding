@@ -56,16 +56,16 @@ public class Light implements Device {
 
     @Override
     public void setActions() {
-        actions.add(new Action(nodeId + ActionName.ACTIONS_0));
-        actions.add(new Action(nodeId + ActionName.ACTIONS_1));
-        actions.add(new Action(nodeId + ActionName.ACTIONS_2));
-        actions.add(new Action(nodeId + ActionName.ACTIONS_3));
-        actions.add(new Action(nodeId + ActionName.ACTIONS_4));
-        actions.add(new Action(nodeId + ActionName.ACTIONS_5));
-        actions.add(new Action(nodeId + ActionName.ACTIONS_6));
-        actions.add(new Action(nodeId + ActionName.ACTIONS_7));
-        actions.add(new Action(nodeId + ActionName.ACTIONS_8));
-        actions.add(new Action(nodeId + ActionName.ACTIONS_9));
+        actions.add(new Action(nodeId + ActionName.getActions().get(0)));
+        actions.add(new Action(nodeId + ActionName.getActions().get(1)));
+        actions.add(new Action(nodeId + ActionName.getActions().get(2)));
+        actions.add(new Action(nodeId + ActionName.getActions().get(3)));
+        actions.add(new Action(nodeId + ActionName.getActions().get(4)));
+        actions.add(new Action(nodeId + ActionName.getActions().get(5)));
+        actions.add(new Action(nodeId + ActionName.getActions().get(6)));
+        actions.add(new Action(nodeId + ActionName.getActions().get(7)));
+        actions.add(new Action(nodeId + ActionName.getActions().get(8)));
+        actions.add(new Action(nodeId + ActionName.getActions().get(9)));
     }
 
     @Override
@@ -125,7 +125,7 @@ public class Light implements Device {
 
     @Override
     public String getNodeId() {
-        return room + " ----- " +  nodeId;
+        return nodeId;
     }
 
     @Override

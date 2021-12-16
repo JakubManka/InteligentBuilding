@@ -47,7 +47,7 @@ public class EditActionsActivityUtils {
         Thread readOneAction = new Thread() {
             @Override
             public void run() {
-                if(device.isPresent()){
+                if (device.isPresent()) {
                     device.get().updateActions();
                     activity.runOnUiThread(() -> updateView());
                 }
@@ -67,7 +67,7 @@ public class EditActionsActivityUtils {
     public void handleAddAction() {
         if (adapterActions.size() < 10) {
             Action newAction = allActions.get(adapterActions.size());
-            adapterActions.add(newAction);
+            adapterActions.add(new Action(newAction.getNodeId(), "", "", "", "", 4));
             adapter.notifyItemInserted(allActions.size() - 1);
         } else {
             Toast.makeText(activity, "Nie można mieć więcej niż 10 akcji", Toast.LENGTH_SHORT).show();
@@ -94,14 +94,26 @@ public class EditActionsActivityUtils {
     }
 
     public void handleSaveAndQuit() {
+        Optional<Device> device = devices.stream().filter(d ->
+                d.getRoom().equals((String) activity.getIntent().getExtras().get("room"))).findFirst();
         ManagerOPC manager = ManagerOPC.getIstance();
         SessionElement sessionElement = manager.getSessions().get(0);
-        if (adapterActions.size() < 10) {
-            for (int i = adapterActions.size(); i < 10; i++) {
-                adapterActions.add(allActions.get(i));
+        for (int i = 0; i < allActions.size(); i++) {
+            if (i <= adapterActions.size() - 1) {
+                allActions.get(i).setTriggerFunction(adapterActions.get(i).getTriggerFunction());
+                allActions.get(i).setTriggerFunctionParam(adapterActions.get(i).getTriggerFunctionParam());
+                allActions.get(i).setActionFunction(adapterActions.get(i).getActionFunction());
+                allActions.get(i).setActionFunctionParam(adapterActions.get(i).getActionFunctionParam());
+            } else {
+                allActions.get(i).setTriggerFunction("");
+                allActions.get(i).setTriggerFunctionParam("");
+                allActions.get(i).setActionFunction("");
+                allActions.get(i).setActionFunctionParam("");
             }
+            allActions.get(i).setNodeId(device.get().getNodeId() + ActionName.getActions().get(i));
+
         }
-        adapterActions.forEach(a -> a.writeActions(sessionElement));
+        allActions.forEach(a -> a.writeActions(sessionElement));
         activity.finish();
     }
 

@@ -44,27 +44,26 @@ public class ActionsAdapter extends RecyclerView.Adapter<ActionViewHolder> {
         ArrayAdapter<CharSequence> triggerFunctionAdapter = ArrayAdapter.createFromResource(holder.itemView.getContext(), R.array.triggerFunctions, android.R.layout.simple_spinner_item);
         triggerFunctionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         holder.getTriggerFunction().setAdapter(triggerFunctionAdapter);
-        holder.getTriggerFunction().setSelection(triggerFunctionAdapter.getPosition(actions.get(position).getTriggerFunction()));
+        holder.getTriggerFunction().setSelection(triggerFunctionAdapter.getPosition(actions.get(holder.getAdapterPosition()).getTriggerFunction()));
 
         ArrayAdapter<CharSequence> actionFunctionAdapter = ArrayAdapter.createFromResource(holder.itemView.getContext(), R.array.actionFunction, android.R.layout.simple_spinner_item);
         actionFunctionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         holder.getActionFunction().setAdapter(actionFunctionAdapter);
-        holder.getActionFunction().setSelection(actionFunctionAdapter.getPosition(actions.get(position).getActionFunction()));
+        holder.getActionFunction().setSelection(actionFunctionAdapter.getPosition(actions.get(holder.getAdapterPosition()).getActionFunction()));
 
         ArrayAdapter<CharSequence> actionParamAdapter = ArrayAdapter.createFromResource(holder.itemView.getContext(), R.array.actionParam, android.R.layout.simple_spinner_item);
         actionParamAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         holder.getActionParam().setAdapter(actionParamAdapter);
-        holder.getActionParam().setSelection(actionParamAdapter.getPosition(actions.get(position).getActionFunctionParam()));
+        holder.getActionParam().setSelection(actionParamAdapter.getPosition(actions.get(holder.getAdapterPosition()).getActionFunctionParam()));
 
-        holder.getFunctionParam().setText(actions.get(position).getTriggerFunctionParam());
+        holder.getFunctionParam().setText(actions.get(holder.getAdapterPosition()).getTriggerFunctionParam());
 
 
         holder.getTriggerFunction().setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String text = adapterView.getItemAtPosition(i).toString();
-                actions.get(position).setTriggerFunction(text);
-
+                actions.get(holder.getAdapterPosition()).setTriggerFunction(text);
             }
 
             @Override
@@ -77,7 +76,7 @@ public class ActionsAdapter extends RecyclerView.Adapter<ActionViewHolder> {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String text = adapterView.getItemAtPosition(i).toString();
-                actions.get(position).setActionFunction(text);
+                actions.get(holder.getAdapterPosition()).setActionFunction(text);
 
             }
 
@@ -91,7 +90,7 @@ public class ActionsAdapter extends RecyclerView.Adapter<ActionViewHolder> {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String text = adapterView.getItemAtPosition(i).toString();
-                actions.get(position).setActionFunctionParam(text);
+                actions.get(holder.getAdapterPosition()).setActionFunctionParam(text);
 
             }
 
@@ -109,9 +108,9 @@ public class ActionsAdapter extends RecyclerView.Adapter<ActionViewHolder> {
 
                 CharSequence time = DateFormat.format("HH:mm", calendar);
                 holder.getFunctionParam().setText(time);
-                actions.get(position).setTriggerFunctionParam(time.toString());
+                actions.get(holder.getAdapterPosition()).setTriggerFunctionParam(time.toString());
             }, 12, 0, true);
-            String time = actions.get(position).getTriggerFunctionParam();
+            String time = actions.get(holder.getAdapterPosition()).getTriggerFunctionParam();
 
             if (time.equals("")) {
                 dialog.updateTime(0, 0);
