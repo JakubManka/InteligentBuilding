@@ -25,7 +25,7 @@ import pwr.inteligentbuilding.R;
 import pwr.inteligentbuilding.activity.MainActivity;
 import pwr.inteligentbuilding.utils.DevicesUtils;
 
-public class Devices implements Serializable {
+public class Devices{
     private final Map<ImageView, Device> devices;
     private Device chosenDevice;
 

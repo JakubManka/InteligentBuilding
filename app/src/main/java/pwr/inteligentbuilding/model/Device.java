@@ -5,8 +5,7 @@ import org.opcfoundation.ua.builtintypes.Variant;
 import java.io.Serializable;
 import java.util.List;
 
-public interface Device extends Serializable {
-
+public interface Device {
     void turnOn();
     void turnOff();
     void updateStatus();
